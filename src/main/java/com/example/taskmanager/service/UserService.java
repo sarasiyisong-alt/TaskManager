@@ -112,9 +112,9 @@ public class UserService implements UserDetailsService {
     // Initialize default users if not present
     @PostConstruct
     public void init() {
-        if (userRepository.findByUsername("admin").isEmpty()) {
+        if (userRepository.findByUsername("Admin").isEmpty()) {
             User admin = new User();
-            admin.setUsername("admin");
+            admin.setUsername("Admin");
             admin.setPassword(passwordEncoder.encode("password"));
             admin.setRole(Role.ADMIN);
             admin.setEmail("admin@example.com");
