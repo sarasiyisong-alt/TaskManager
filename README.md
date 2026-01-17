@@ -6,7 +6,7 @@ This is a standard Task Management Application built with Spring Boot and Postgr
 ## Features
 *   **User Authentication & Authorization**: Secure login and registration with Spring Security; Role-based permissions (Admin vs. Standard User).
 *   **Task Management**: Create, Read, Update, and Delete (CRUD) tasks. Track task status (e.g., PENDING, IN_PROGRESS, COMPLETED).
-*   **Dashboard UI**: A user-friendly calendar or list view to visualize and manage tasks. Default showing all tasks of the current user and their subordinates for current week. User can switch to different time range and filter by status.
+*   **Dashboard UI**: A user-friendly calendar or list view to visualize and manage tasks. Default showing all tasks of the current user and their subordinates for current week.
 *   **Email Notifications**: Integration with MailHog to capture and view email notifications sent by the application.
 
 ## Tech Stack
