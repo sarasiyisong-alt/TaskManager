@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager - Dashboard</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">Task Manager</div>
+        <div class="nav-user">
+            <span id="currentUser"></span>
+            <form action="/logout" method="post">
+                <button type="submit" class="btn-logout">Logout</button>
+            </form>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="dashboard-header">
+            <h2>Dashboard</h2>
+            <div>
+                <button id="exportCsvBtn" class="btn-secondary" style="margin-right: 10px;">Export CSV</button>
+                <button id="createTaskBtn" class="btn-primary">Create New Task</button>
+            </div>
+        </header>
+
+        <!-- Admin/Manager Section -->
+        <div id="adminSection" class="admin-panel" style="display: none;">
+            <h3>User Management</h3>
+            <div class="user-controls">
+                <form id="createUserForm" class="inline-form">
+                    <input type="text" id="newUsername" placeholder="Username" required>
+                    <input type="password" id="newPassword" placeholder="Password" required>
+                    <input type="email" id="newEmail" placeholder="Email" style="width: 200px;">
+                    <select id="newRole">
+                        <option value="USER">User</option>
+                        <option value="MANAGER">Manager</option>
+                        <option value="ADMIN">Admin</option>
+                    </select>
+                    <button type="submit" class="btn-secondary">Add User</button>
+                </form>
+            </div>
+            <div id="userList" class="user-list"></div>
+        </div>
+
+        <div class="filters">
+            <label>Filter by Status:</label>
+            <select id="statusFilter">
+                <option value="ALL">All</option>
+                <option value="PENDING">Pending</option>
+                <option value="APPROVED">Approved</option>
+                <option value="REJECTED">Rejected</option>
+            </select>
+
+            <label>Sort by:</label>
+            <select id="sortBy">
+                <option value="date">Date (Newest)</option>
+                <option value="priority">Priority</option>
+            </select>
+        </div>
+
+        <div class="view-controls" style="margin-bottom: 20px;">
+            <button id="viewListBtn" class="btn-toggle active">List View</button>
+            <button id="viewCalendarBtn" class="btn-toggle">Calendar View</button>
+        </div>
+
+        <div id="calendarSection" class="calendar-container" style="display: none;">
+            <div class="calendar-nav">
+                <button id="prevWeekBtn" class="btn-nav">&lt; Prev Week</button>
+                <div class="week-display">
+                    <span id="currentWeekRange"></span>
+                    <input type="date" id="jumpToDate" title="Jump to date">
+                </div>
+                <button id="nextWeekBtn" class="btn-nav">Next Week &gt;</button>
+            </div>
+            <div class="calendar-grid">
+                <!-- Days headers -->
+                <div class="calendar-header-row">
+                    <div class="cal-day-header">Sun</div>
+                    <div class="cal-day-header">Mon</div>
+                    <div class="cal-day-header">Tue</div>
+                    <div class="cal-day-header">Wed</div>
+                    <div class="cal-day-header">Thu</div>
+                    <div class="cal-day-header">Fri</div>
+                    <div class="cal-day-header">Sat</div>
+                </div>
+                <!-- Days content -->
+                <div id="calendarBody" class="calendar-body-row">
+                    <!-- 7 columns for tasks injected by JS -->
+                </div>
+            </div>
+        </div>
+
+        <div id="taskList" class="task-grid">
+            <!-- Tasks will be injected here -->
+        </div>
+    </div>
+
+    <!-- Create Task Modal -->
+    <div id="taskModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Create New Task</h2>
+            <form id="newTaskForm">
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" id="taskTitle" required>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="taskDesc" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Priority (1-High, 5-Low)</label>
+                    <input type="number" id="taskPriority" min="1" max="5" value="3">
+                </div>
+                <div class="form-group">
+                    <label>Assign To</label>
+                    <select id="taskAssignee">
+                        <option value="">Myself</option>
+                        <!-- Dynamic options here -->
+                    </select>
+                </div>
+                <button type="submit" class="btn-primary">Create Task</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit User Modal -->
+    <div id="editUserModal" class="modal">
+        <div class="modal-content" style="width: 400px;">
+            <span class="close" onclick="document.getElementById('editUserModal').style.display='none'">&times;</span>
+            <h2>Edit User</h2>
+            <form id="editUserForm">
+                <input type="hidden" id="editUserId">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="editEmail">
+                </div>
+                <div class="form-group">
+                    <label>New Password (leave blank to keep)</label>
+                    <input type="password" id="editPassword">
+                </div>
+                <button type="submit" class="btn-primary">Update User</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="/js/app.js"></script>
+</body>
+
+</html>
