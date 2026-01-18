@@ -1,5 +1,7 @@
 # Task Management Application
 
+![Demo](assets/demo.webp)
+
 A Task Management Application built with Spring Boot and PostgreSQL, fully containerized for easy deployment.
 
 ## Prerequisites
