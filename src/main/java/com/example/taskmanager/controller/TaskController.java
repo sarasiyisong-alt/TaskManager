@@ -28,11 +28,14 @@ public class TaskController {
     }
 
     @GetMapping
-    public List<Task> getAllTasks() {
+    public org.springframework.http.ResponseEntity<List<Task>> getAllTasks() {
         String username = org.springframework.security.core.context.SecurityContextHolder.getContext()
                 .getAuthentication().getName();
         com.example.taskmanager.entity.User user = userService.getUserByUsername(username);
-        return taskService.getAllTasks(user);
+
+        return org.springframework.http.ResponseEntity.ok()
+                .cacheControl(org.springframework.http.CacheControl.noCache().mustRevalidate())
+                .body(taskService.getAllTasks(user));
     }
 
     @PutMapping("/{id}/approve")

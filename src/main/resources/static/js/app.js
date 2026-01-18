@@ -130,6 +130,11 @@ function app() {
                 this.auth.user = null;
                 this.auth.token = false;
                 this.view = 'list';
+                // Clear data to prevent leakage
+                this.allUsers = [];
+                this.userList = [];
+                this.tasks = [];
+                this.initApp(); // re-init to reset week start etc
             } catch (e) {
                 console.error("Logout failed", e);
             }
