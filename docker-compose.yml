@@ -1,5 +1,19 @@
 version: '3.8'
 services:
+  app:
+    build: .
+    container_name: taskmanager-app
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/taskmanager
+      - SPRING_DATASOURCE_USERNAME=taskuser
+      - SPRING_DATASOURCE_PASSWORD=taskpass
+      - SPRING_MAIL_HOST=mailhog
+      - SPRING_MAIL_PORT=1025
+    depends_on:
+      - db
+      - mailhog
   db:
     image: postgres:15
     container_name: taskmanager-db
