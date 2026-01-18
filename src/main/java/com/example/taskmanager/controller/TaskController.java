@@ -29,7 +29,10 @@ public class TaskController {
 
     @GetMapping
     public List<Task> getAllTasks() {
-        return taskService.getAllTasks();
+        String username = org.springframework.security.core.context.SecurityContextHolder.getContext()
+                .getAuthentication().getName();
+        com.example.taskmanager.entity.User user = userService.getUserByUsername(username);
+        return taskService.getAllTasks(user);
     }
 
     @PutMapping("/{id}/approve")
@@ -52,6 +55,9 @@ public class TaskController {
         response.setContentType("text/csv; charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
         response.setHeader("Content-Disposition", "attachment; filename=\"tasks.csv\"");
-        taskService.exportTasksToCsv(response.getWriter());
+        String username = org.springframework.security.core.context.SecurityContextHolder.getContext()
+                .getAuthentication().getName();
+        com.example.taskmanager.entity.User user = userService.getUserByUsername(username);
+        taskService.exportTasksToCsv(response.getWriter(), user);
     }
 }

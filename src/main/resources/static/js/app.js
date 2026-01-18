@@ -1,74 +1,315 @@
-document.addEventListener('DOMContentLoaded', () => {
-    fetchUserInfo();
-    setupEventListeners();
-    fetchTasks();
-});
+function app() {
+    return {
+        auth: {
+            user: null,
+            token: false // using boolean to track if logged in based on /me
+        },
+        loading: true,
+        loginForm: {
+            username: '',
+            password: ''
+        },
+        loginError: '',
 
-let currentUser = null;
-let allUsers = [];
-let currentView = 'list'; // 'list' or 'calendar'
-let currentWeekStart = getStartOfWeek(new Date());
+        view: 'list', // 'list' or 'calendar'
 
-function getStartOfWeek(date) {
-    const d = new Date(date);
-    const day = d.getDay(); // 0 (Sun) to 6 (Sat)
-    const diff = d.getDate() - day;
-    return new Date(d.setDate(diff));
-}
+        // Data
+        tasks: [],
+        allUsers: [],
+        userList: [], // for admin
 
-function fetchUserInfo() {
-    fetch('/api/auth/me')
-        .then(res => res.json())
-        .then(user => {
-            currentUser = user;
-            document.getElementById('currentUser').textContent = `Logged in as: ${user.username} (${user.roles[0].authority})`;
+        // Filters
+        filters: {
+            status: 'ALL',
+            sortBy: 'date'
+        },
 
-            const role = user.roles[0].authority;
-            // Admin and Manager can manage users
-            if (role === 'ROLE_ADMIN' || role === 'ROLE_MANAGER') {
-                document.getElementById('adminSection').style.display = 'block';
-                fetchUsers();
+        // Task Modal
+        showTaskModal: false,
+        newTask: {
+            title: '',
+            description: '',
+            priority: 'P2',
+            assignedUserId: ''
+        },
+
+        // User Modal
+        showUserModal: false,
+        newUser: {
+            username: '',
+            password: '',
+            email: '',
+            role: 'USER'
+        },
+
+        // Calendar State
+        currentWeekStart: new Date(),
+
+        initApp() {
+            // Align currentWeekStart to Sunday (UTC)
+            const now = new Date();
+            const utc = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+            const day = utc.getUTCDay(); // Sunday is 0
+            utc.setUTCDate(utc.getUTCDate() - day);
+            this.currentWeekStart = utc;
+
+            this.checkAuth();
+        },
+
+        // --- Auth ---
+
+        async checkAuth() {
+            this.loading = true;
+            try {
+                const res = await fetch('/api/auth/me');
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.authenticated && data.username !== 'anonymousUser') {
+                        this.auth.user = data;
+                        this.auth.token = true;
+                        this.fetchTasks();
+                        if (this.hasRole('ADMIN') || this.hasRole('MANAGER')) {
+                            this.fetchUsers();
+                            this.fetchAllUsersForDropdown();
+                        }
+                    } else {
+                        this.auth.user = null;
+                        this.auth.token = false;
+                    }
+                } else {
+                    this.auth.user = null;
+                    this.auth.token = false;
+                }
+            } catch (e) {
+                console.error("Auth check failed", e);
+                this.auth.token = false;
+            } finally {
+                this.loading = false;
             }
-            // Load users for assignment dropdown logic if needed, or do it when opening modal
-            if (role === 'ROLE_ADMIN' || role === 'ROLE_MANAGER') {
-                fetchAllUsersForAssignment();
+        },
+
+        async login() {
+            this.loading = true;
+            this.loginError = '';
+
+            const formData = new FormData();
+            formData.append('username', this.loginForm.username);
+            formData.append('password', this.loginForm.password);
+
+            try {
+                const res = await fetch('/login', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (res.ok || res.redirected) {
+                    // Successful login usually redirects or returns OK
+                    await this.checkAuth();
+                    if (this.auth.token) {
+                        this.loginForm.username = '';
+                        this.loginForm.password = '';
+                    } else {
+                        // Even if 200, maybe not auth?
+                        // If standard login page redirect, we might be scraping HTML. 
+                        // Assuming backend respects REST or standard cookie session.
+                        this.loginError = 'Login failed. Please check credentials.';
+                    }
+                } else {
+                    this.loginError = 'Invalid username or password';
+                }
+            } catch (e) {
+                this.loginError = 'Network error during login';
+            } finally {
+                this.loading = false;
             }
-        });
-}
+        },
 
-function fetchAllUsersForAssignment() {
-    // Reuse the same endpoint, backend filters for manager
-    fetch('/api/users')
-        .then(res => res.json())
-        .then(users => {
-            allUsers = users;
-        });
-}
+        async logout() {
+            try {
+                await fetch('/logout', { method: 'POST' });
+                this.auth.user = null;
+                this.auth.token = false;
+                this.view = 'list';
+            } catch (e) {
+                console.error("Logout failed", e);
+            }
+        },
 
-function setupEventListeners() {
-    // Modal controls
-    const modal = document.getElementById('taskModal');
-    const btn = document.getElementById('createTaskBtn');
-    const span = document.getElementsByClassName("close")[0];
+        hasRole(role) {
+            return this.auth.user?.roles?.some(r => r.authority === 'ROLE_' + role);
+        },
 
-    btn.onclick = () => {
-        modal.style.display = "block";
-        populateAssigneeDropdown();
-    };
-    span.onclick = () => modal.style.display = "none";
-    window.onclick = (event) => {
-        if (event.target == modal) modal.style.display = "none";
-        if (event.target == document.getElementById('editUserModal')) document.getElementById('editUserModal').style.display = "none";
-    }
+        getRoleLabel() {
+            if (!this.auth.user?.roles?.length) return '';
+            return this.auth.user.roles[0].authority.replace('ROLE_', '');
+        },
 
-    // Export CSV
-    document.getElementById('exportCsvBtn').addEventListener('click', () => {
-        fetch('/api/tasks/export')
-            .then(response => {
-                if (!response.ok) throw new Error('Export failed');
-                return response.blob();
-            })
-            .then(blob => {
+        // --- Users ---
+
+        async fetchUsers() {
+            // For admin table
+            try {
+                const res = await fetch('/api/users');
+                if (res.ok) {
+                    this.userList = await res.json();
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        },
+
+        async fetchAllUsersForDropdown() {
+            try {
+                const res = await fetch('/api/users'); // reuse same endpoint
+                if (res.ok) {
+                    this.allUsers = await res.json();
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        },
+
+        async createUser() {
+            if (!confirm('Create this user?')) return;
+            try {
+                const res = await fetch('/api/users', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(this.newUser)
+                });
+
+                if (!res.ok) {
+                    const txt = await res.text();
+                    alert("Failed: " + txt);
+                    return;
+                }
+
+                this.newUser = { username: '', password: '', email: '', role: 'USER' };
+                this.fetchUsers();
+                this.fetchAllUsersForDropdown();
+            } catch (e) {
+                alert(e.message);
+            }
+        },
+
+        async deleteUser(id) {
+            if (!confirm('Delete this user?')) return;
+            try {
+                const res = await fetch(`/api/users/${id}`, { method: 'DELETE' });
+                if (!res.ok) {
+                    const json = await res.json().catch(() => ({}));
+                    alert(json.message || "Failed to delete");
+                    return;
+                }
+                this.fetchUsers();
+                this.fetchAllUsersForDropdown();
+            } catch (e) {
+                alert(e.message);
+            }
+        },
+
+        // --- Tasks ---
+
+        async fetchTasks() {
+            try {
+                const res = await fetch('/api/tasks');
+                let data = await res.json();
+
+                // Client-side filtering
+                if (this.filters.status !== 'ALL') {
+                    data = data.filter(t => t.status === this.filters.status);
+                }
+
+                // Sorting
+                data.sort((a, b) => {
+                    if (this.filters.sortBy === 'priority') {
+                        return a.priority.localeCompare(b.priority);
+                    } else {
+                        // Date newest first
+                        return new Date(b.createdDate) - new Date(a.createdDate);
+                    }
+                });
+
+                this.tasks = data;
+            } catch (e) {
+                console.error("Fetch tasks failed", e);
+            }
+        },
+
+        openTaskModal() {
+            this.newTask = {
+                title: '',
+                description: '',
+                priority: 'P2',
+                assignedUserId: '' // default logic handled by backend usually, or passing null
+            };
+            this.showTaskModal = true;
+        },
+
+        async createTask() {
+            const payload = {
+                title: this.newTask.title,
+                description: this.newTask.description,
+                priority: this.newTask.priority,
+                assignedUserId: this.newTask.assignedUserId ? parseInt(this.newTask.assignedUserId) : null
+            };
+
+            try {
+                const res = await fetch('/api/tasks', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!res.ok) throw new Error(await res.text());
+
+                this.showTaskModal = false;
+                this.fetchTasks();
+            } catch (e) {
+                alert("Error: " + e.message);
+            }
+        },
+
+        // Can delete logic: Admin, or Creator
+        canDelete(task) {
+            if (this.hasRole('ADMIN')) return true;
+            // Assumes task.createUser is populated
+            if (task.createUser?.id === this.auth.user?.id) return true;
+            return false;
+        },
+
+        async deleteTask(id) {
+            if (!confirm("Delete task?")) return;
+            try {
+                const res = await fetch(`/api/tasks/${id}`, { method: 'DELETE' });
+                if (res.ok) {
+                    this.fetchTasks();
+                } else {
+                    alert("Failed to delete task");
+                }
+            } catch (e) {
+                alert("Error: " + e.message);
+            }
+        },
+
+        async updateTaskStatus(id, status) {
+            try {
+                await fetch(`/api/tasks/${id}/approve`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ status })
+                });
+                this.fetchTasks();
+            } catch (e) {
+                alert("Error updating status");
+            }
+        },
+
+        async exportCsv() {
+            try {
+                const res = await fetch('/api/tasks/export');
+                if (!res.ok) throw new Error('Export failed');
+                const blob = await res.blob();
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.style.display = 'none';
@@ -78,398 +319,77 @@ function setupEventListeners() {
                 a.click();
                 window.URL.revokeObjectURL(url);
                 document.body.removeChild(a);
-            })
-            .catch(err => alert('Error exporting CSV: ' + err.message));
-    });
-
-    // Create Task
-    document.getElementById('newTaskForm').addEventListener('submit', (e) => {
-        e.preventDefault();
-        const assigneeId = document.getElementById('taskAssignee').value;
-        const task = {
-            title: document.getElementById('taskTitle').value,
-            description: document.getElementById('taskDesc').value,
-            priority: document.getElementById('taskPriority').value,
-            assignedUserId: assigneeId ? parseInt(assigneeId) : null
-        };
-
-        fetch('/api/tasks', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(task)
-        }).then(res => {
-            if (!res.ok) {
-                return res.text().then(text => { throw new Error(text) });
+            } catch (err) {
+                alert('Error exporting CSV: ' + err.message);
             }
-            return res.json();
-        }).then(() => {
-            modal.style.display = "none";
-            document.getElementById('newTaskForm').reset();
-            fetchTasks();
-        }).catch(err => alert("Error: " + err.message));
-    });
+        },
 
-    // Filters
-    document.getElementById('statusFilter').addEventListener('change', fetchTasks);
-    document.getElementById('sortBy').addEventListener('change', fetchTasks);
+        // --- Calendar ---
 
-    // View Switching
-    document.getElementById('viewListBtn').addEventListener('click', () => switchView('list'));
-    document.getElementById('viewCalendarBtn').addEventListener('click', () => switchView('calendar'));
+        changeWeek(days) {
+            const d = new Date(this.currentWeekStart);
+            d.setDate(d.getDate() + days);
+            this.currentWeekStart = d;
+        },
 
-    // Calendar Navigation
-    document.getElementById('prevWeekBtn').addEventListener('click', () => changeWeek(-7));
-    document.getElementById('nextWeekBtn').addEventListener('click', () => changeWeek(7));
-    document.getElementById('jumpToDate').addEventListener('change', (e) => {
-        if (e.target.value) {
-            currentWeekStart = getStartOfWeek(new Date(e.target.value));
-            fetchTasks(); // Helper to re-render
-        }
-    });
+        jumpToDate(dateStr) {
+            if (!dateStr) return;
+            const d = new Date(dateStr);
+            const utc = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()));
+            const day = utc.getUTCDay();
+            utc.setUTCDate(utc.getUTCDate() - day);
+            this.currentWeekStart = utc;
+        },
 
-    // Create User (Admin/Manager)
-    const createUserForm = document.getElementById('createUserForm');
-    if (createUserForm) {
-        createUserForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const newUser = {
-                username: document.getElementById('newUsername').value,
-                password: document.getElementById('newPassword').value,
-                role: document.getElementById('newRole').value,
-                email: document.getElementById('newEmail').value
-            };
+        get weekRangeText() {
+            const start = this.currentWeekStart;
+            const end = new Date(start);
+            end.setUTCDate(start.getUTCDate() + 6);
 
-            fetch('/api/users', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(newUser)
-            }).then(res => {
-                if (!res.ok) return res.text().then(text => { throw new Error(text) });
-                return res.json();
-            }).then(() => {
-                document.getElementById('createUserForm').reset();
-                fetchUsers();
-                if (currentUser.roles[0].authority !== 'ROLE_USER') fetchAllUsersForAssignment();
-            }).catch(e => alert(e.message));
-        });
-    }
+            const format = (d) => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' });
+            return `${format(start)} - ${format(end)} (UTC)`;
+        },
 
-    // Edit User Submit
-    document.getElementById('editUserForm').addEventListener('submit', (e) => {
-        e.preventDefault();
-        const id = document.getElementById('editUserId').value;
-        const updates = {
-            email: document.getElementById('editEmail').value,
-            password: document.getElementById('editPassword').value
-        };
+        get calendarDays() {
+            const days = [];
+            const now = new Date();
+            const todayUTCStr = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate())).toISOString().split('T')[0];
 
-        fetch(`/api/users/${id}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(updates)
-        }).then(res => {
-            if (!res.ok) return res.text().then(text => { throw new Error(text) });
-            return res.json();
-        }).then(() => {
-            document.getElementById('editUserModal').style.display = "none";
-            fetchUsers();
-        }).catch(e => alert(e.message));
-    });
-}
+            for (let i = 0; i < 7; i++) {
+                const d = new Date(this.currentWeekStart);
+                d.setUTCDate(d.getUTCDate() + i);
 
-function populateAssigneeDropdown() {
-    const select = document.getElementById('taskAssignee');
-    select.innerHTML = '';
-
-    // Self option always there
-    const selfOption = document.createElement('option');
-    selfOption.value = ''; // We handle null or ID check in backend, or passing self ID? 
-    // Backend defaults to creator if null. Let's send null for self.
-    // Wait, backend logic: "If task.getAssignedUserId() == null task.setAssignedUserId(creator.getId())".
-    // So value="" maps to null.
-    selfOption.textContent = 'Myself';
-    select.appendChild(selfOption);
-
-    if (currentUser.roles[0].authority === 'ROLE_USER') {
-        // Only self, done
-    } else {
-        // Manager/Admin can assign to others
-        allUsers.forEach(u => {
-            // Don't duplicate self?
-            // Actually, usually managers can assign to anyone they manage.
-            const opt = document.createElement('option');
-            opt.value = u.id;
-            opt.textContent = `${u.username} (${u.role})`;
-            select.appendChild(opt);
-        });
-    }
-}
-
-function fetchTasks() {
-    fetch('/api/tasks')
-        .then(res => res.json())
-        .then(tasks => {
-            const statusFilter = document.getElementById('statusFilter').value;
-            const sortBy = document.getElementById('sortBy').value;
-
-            if (statusFilter !== 'ALL') {
-                tasks = tasks.filter(t => t.status === statusFilter);
-            }
-
-            tasks.sort((a, b) => {
-                if (sortBy === 'priority') {
-                    return a.priority - b.priority;
-                } else {
-                    return new Date(b.createdDate) - new Date(a.createdDate);
-                }
-            });
-
-            if (currentView === 'list') {
-                document.getElementById('taskList').style.display = 'grid';
-                document.getElementById('calendarSection').style.display = 'none';
-                // Sort logic only needed for list view really, but fine to keep
-                tasks.sort((a, b) => {
-                    if (sortBy === 'priority') {
-                        return a.priority - b.priority;
-                    } else {
-                        return new Date(b.createdDate) - new Date(a.createdDate);
-                    }
+                const dateStr = d.toISOString().split('T')[0];
+                const dayTasks = this.tasks.filter(t => {
+                    if (!t.createdDate) return false;
+                    const tDateStr = new Date(t.createdDate).toISOString().split('T')[0];
+                    return tDateStr === dateStr;
                 });
-                renderTaskList(tasks);
-            } else {
-                document.getElementById('taskList').style.display = 'none';
-                document.getElementById('calendarSection').style.display = 'block';
-                renderCalendar(tasks);
+
+                days.push({
+                    dayNum: d.getUTCDate(),
+                    dateStr: dateStr,
+                    isToday: dateStr === todayUTCStr,
+                    tasks: dayTasks
+                });
             }
-        });
-}
+            return days;
+        },
 
-function renderTaskList(tasks) {
-    const list = document.getElementById('taskList');
-    list.innerHTML = '';
+        // --- Helpers ---
 
-    tasks.forEach(task => {
-        const card = document.createElement('div');
-        card.className = `task-card ${task.status.toLowerCase()}`;
+        formatDate(isoStr) {
+            if (!isoStr) return '';
+            const d = new Date(isoStr);
+            return d.toISOString().replace('T', ' ').substring(0, 16) + ' UTC';
+        },
 
-        let actions = '';
-        const role = currentUser ? currentUser.roles[0].authority : '';
-
-        if ((role === 'ROLE_MANAGER' || role === 'ROLE_ADMIN') && task.status === 'PENDING') {
-            actions = `
-                <div class="task-actions">
-                    <button class="btn-approve" onclick="updateStatus(${task.id}, 'APPROVED')">Approve</button>
-                    <button class="btn-reject" onclick="updateStatus(${task.id}, 'REJECTED')">Reject</button>
-                </div>
-            `;
+        getStatusBadgeClass(status) {
+            switch (status) {
+                case 'APPROVED': return 'bg-emerald-50 text-emerald-600';
+                case 'REJECTED': return 'bg-red-50 text-red-600';
+                default: return 'bg-amber-50 text-amber-600';
+            }
         }
-
-        // Use user objects if returned (populated by JoinColumn/Eager or manually in DTO)
-        // Spring Data REST or standard Serialize might serialize the relationships if they are loaded.
-        // If FetchType is EAGER for createUser/assignedUser on Task, they will be in JSON.
-        // Default conversion might include them.
-        const creatorName = task.createUser ? task.createUser.username : 'Unknown';
-        const assigneeName = task.assignedUser ? task.assignedUser.username : 'Unassigned';
-
-        card.innerHTML = `
-            <div class="task-header">
-                <h3>${task.title}</h3>
-                <span class="task-status status-${task.status.toLowerCase()}">${task.status}</span>
-            </div>
-            <p>${task.description || 'No description'}</p>
-            <div style="margin-top: 0.5rem; font-size: 0.875rem; color: #666;">
-                Priority: ${task.priority} | Created: ${new Date(task.createdDate).toLocaleDateString()}
-            </div>
-            <div style="margin-top: 0.25rem; font-size: 0.8rem; color: #555;">
-                Creator: <b>${creatorName}</b> | Assignee: <b>${assigneeName}</b>
-            </div>
-            ${actions}
-            <div style="margin-top: 10px;">
-                 ${canDelete(task) ? `<button class="btn-delete" onclick="deleteTask(${task.id})">Delete Task</button>` : ''}
-            </div>
-        `;
-        list.appendChild(card);
-    });
-}
-
-function canDelete(task) {
-    if (!currentUser) return false;
-    const role = currentUser.roles[0].authority;
-    if (role === 'ROLE_ADMIN') return true;
-    if (task.createUser && task.createUser.id === currentUser.id) return true;
-    return false;
-}
-
-function deleteTask(id) {
-    if (confirm("Are you sure you want to delete this task?")) {
-        fetch(`/api/tasks/${id}`, { method: 'DELETE' })
-            .then(res => {
-                if (res.ok) {
-                    fetchTasks();
-                } else {
-                    res.json().then(json => alert("Failed to delete: " + (json.message || json.error)))
-                        .catch(() => res.text().then(text => alert("Failed to delete: " + text)));
-                }
-            })
-            .catch(err => alert("Error: " + err));
     }
 }
-
-function updateStatus(id, status) {
-    fetch(`/api/tasks/${id}/approve`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status: status })
-    }).then(() => fetchTasks());
-}
-
-function fetchUsers() {
-    fetch('/api/users')
-        .then(res => res.json())
-        .then(users => {
-            const list = document.getElementById('userList');
-            list.innerHTML = '';
-
-            // Header
-            const header = document.createElement('div');
-            header.className = 'user-item header';
-            header.style.fontWeight = 'bold';
-            header.innerHTML = `
-                 <span style="flex:1">Username</span>
-                 <span style="flex:1">Role</span>
-                 <span style="flex:1">Manager</span>
-                 <span style="flex:1">Email</span>
-                 <span style="width: 120px">Actions</span>
-            `;
-            list.appendChild(header);
-
-            users.forEach(user => {
-                const div = document.createElement('div');
-                div.className = 'user-item';
-                const managerName = user.manager ? user.manager.username : '-';
-                const email = user.email || '-';
-
-                div.innerHTML = `
-                    <span style="flex:1">${user.username}</span>
-                    <span style="flex:1">${user.role}</span>
-                    <span style="flex:1">${managerName}</span>
-                    <span style="flex:1">${email}</span>
-                    <div style="width: 120px; display:flex; gap: 5px;">
-                        <button class="btn-edit" onclick="openEditUser(${user.id}, '${email}')">Edit</button>
-                        <button class="btn-delete" onclick="deleteUser(${user.id})">Delete</button>
-                    </div>
-                `;
-                list.appendChild(div);
-            });
-        });
-}
-
-function deleteUser(id) {
-    if (confirm('Are you sure?')) {
-        fetch(`/api/users/${id}`, { method: 'DELETE' })
-            .then(res => {
-                if (!res.ok) {
-                    return res.json().then(json => alert(json.message || json.error))
-                        .catch(() => res.text().then(text => alert(text)));
-                }
-                fetchUsers();
-                if (currentUser.roles[0].authority !== 'ROLE_USER') fetchAllUsersForAssignment();
-            });
-    }
-}
-
-function openEditUser(id, currentEmail) {
-    document.getElementById('editUserId').value = id;
-    document.getElementById('editEmail').value = currentEmail === '-' ? '' : currentEmail;
-    document.getElementById('editPassword').value = '';
-    document.getElementById('editUserModal').style.display = 'block';
-}
-
-
-function switchView(view) {
-    currentView = view;
-
-    // Update buttons
-    const listBtn = document.getElementById('viewListBtn');
-    const calBtn = document.getElementById('viewCalendarBtn');
-
-    if (view === 'list') {
-        listBtn.classList.add('active');
-        calBtn.classList.remove('active');
-    } else {
-        listBtn.classList.remove('active');
-        calBtn.classList.add('active');
-    }
-
-    fetchTasks(); // Refresh display
-}
-
-function changeWeek(days) {
-    currentWeekStart.setDate(currentWeekStart.getDate() + days);
-    fetchTasks();
-}
-
-function renderCalendar(tasks) {
-    const calendarBody = document.getElementById('calendarBody');
-    calendarBody.innerHTML = '';
-
-    const weekEnd = new Date(currentWeekStart);
-    weekEnd.setDate(currentWeekStart.getDate() + 6);
-
-    // Display range
-    const options = { month: 'short', day: 'numeric' };
-    document.getElementById('currentWeekRange').textContent =
-        `${currentWeekStart.toLocaleDateString(undefined, options)} - ${weekEnd.toLocaleDateString(undefined, options)}`;
-
-    // Create 7 columns
-    for (let i = 0; i < 7; i++) {
-        const currentDate = new Date(currentWeekStart);
-        currentDate.setDate(currentWeekStart.getDate() + i);
-
-        const col = document.createElement('div');
-        col.className = 'cal-day-col';
-
-        // Highlight today
-        const today = new Date();
-        if (currentDate.toDateString() === today.toDateString()) {
-            col.classList.add('today');
-        }
-
-        // Date label
-        const dateLabel = document.createElement('div');
-        dateLabel.className = 'cal-date-label';
-        dateLabel.textContent = currentDate.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
-        col.appendChild(dateLabel);
-
-        // Filter tasks for this day
-        // Using createdDate. Need to match YYYY-MM-DD
-        const dayTasks = tasks.filter(t => {
-            const tDate = new Date(t.createdDate);
-            return tDate.toDateString() === currentDate.toDateString();
-        });
-
-        // Render tasks
-        dayTasks.forEach(task => {
-            const taskEl = document.createElement('div');
-            taskEl.className = `cal-task-card ${task.status.toLowerCase()}`;
-            taskEl.title = `${task.title}\nStatus: ${task.status}\nPriority: ${task.priority}`;
-
-            // Simple click to list view or similar? Or just simple display
-            // Let's scroll to it in list view? Or just alert details?
-            // For now, simple alerts or maybe reusing edit modal if we had one.
-            // Requirement didn't specify interaction, just view.
-
-            taskEl.innerHTML = `<div class="cal-task-title">${task.title}</div>`;
-            col.appendChild(taskEl);
-        });
-
-        calendarBody.appendChild(col);
-    }
-}
-
-window.updateStatus = updateStatus;
-window.deleteUser = deleteUser;
-window.deleteTask = deleteTask;
-window.openEditUser = openEditUser;
-window.switchView = switchView; // not strictly needed for onclick unless I put it in HTML
-
