@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body class="login-body">
     <div class="login-container">
         <h1>Task Manager</h1>
@@ -23,6 +25,20 @@
             <button type="submit" class="btn-primary">Sign In</button>
             <p class="helper-text">Default users: user/password, manager/password, admin/password</p>
         </form>
+
+        <div class="login-instructions">
+            <p><strong>System Note:</strong></p>
+            <p>No signup available. User creation depends on Admin/Manager logic.</p>
+            <ul style="margin-top: 0.5rem; padding-left: 1.2rem;">
+                <li><strong>Admin:</strong> Can create/delete all roles.</li>
+                <li><strong>Manager:</strong> Can create Users & delete their own created Users.</li>
+                <li><strong>Deletion:</strong> Must remove assigned tasks before deleting a role.</li>
+            </ul>
+            <p style="margin-top: 0.5rem;"><strong>Initial Users:</strong> admin, manager, user (Password: password)</p>
+            <p style="margin-top: 0.5rem; color: var(--primary-color);">Please login as <strong>admin</strong> to
+                explore.</p>
+        </div>
     </div>
 </body>
+
 </html>
