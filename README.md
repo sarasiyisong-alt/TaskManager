@@ -4,6 +4,27 @@
 
 A Task Management Application built with Spring Boot and PostgreSQL, fully containerized for easy deployment.
 
+## Features
+
+### Task Management
+*   **Complete CRUD Operations**: Create, Read, Update, and Delete tasks efficiently.
+*   **Status Workflow**: Manage tasks through a defined lifecycle (Pending -> Approved/Rejected).
+*   **Dynamic Views**: Switch between a standard **List View** and an interactive **Calendar View** for better time management.
+*   **Export Data**: Easily export task lists to CSV for external reporting and analysis.
+*   **Priority & Assignment**: Set task priorities and assign them to specific users or yourself.
+
+### User Management
+*   **Role-Based Access Control (RBAC)**: Secure access with distinct roles:
+    *   **Admin**: Full system control, user management.
+    *   **Manager**: Enhanced task oversight.
+    *   **User**: Standard task management capabilities.
+*   **User Administration**: Admins can create, update, and manage user accounts directly from the dashboard.
+
+### System & Security
+*   **Secure Authentication**: Robust login system backed by Spring Security.
+*   **Email Notifications**: Integration with MailHog to capture and display system emails during development.
+*   **Containerized Deployment**: Zero-config setup using Docker and Docker Compose.
+
 ## Prerequisites
 
 *   [Docker](https://www.docker.com/products/docker-desktop/) & Docker Compose
