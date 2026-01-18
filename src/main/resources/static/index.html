@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en" class="bg-zinc-50 text-zinc-900 antialiased">
+<html lang="en" data-theme="light" class="bg-zinc-50 text-zinc-900 antialiased">
 
 <head>
     <meta charset="UTF-8">
@@ -129,10 +128,10 @@
 
     <!-- Dashboard View -->
     <template x-if="auth.token">
-        <div class="flex min-h-screen flex-col">
+        <div class="relative flex flex-col h-screen overflow-hidden" x-cloak>
             <!-- Navbar -->
             <header
-                class="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-zinc-200 bg-white/80 px-4 backdrop-blur-md sm:px-8">
+                class="flex-none z-30 flex h-16 items-center justify-between border-b border-zinc-200 bg-white px-4 sm:px-8">
                 <div class="flex items-center gap-2">
                     <div class="h-6 w-6 rounded bg-zinc-900"></div>
                     <span class="text-lg font-semibold tracking-tight text-zinc-900">Task Manager</span>
@@ -152,7 +151,7 @@
             </header>
 
             <!-- Main Content -->
-            <main class="flex-1 p-4 sm:p-8 max-w-7xl mx-auto w-full">
+            <main class="flex-1 p-4 sm:p-8 max-w-7xl mx-auto w-full overflow-y-auto">
 
                 <!-- Toolbar -->
                 <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -234,9 +233,13 @@
                                         class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider">
                                         <span x-text="task.status"></span>
                                     </span>
-                                    <span x-show="task.priority <= 2"
-                                        class="text-[10px] font-medium text-red-500 bg-red-50 px-1.5 py-0.5 rounded">High
-                                        Priority</span>
+                                    <span class="text-[10px] font-medium px-1.5 py-0.5 rounded border" :class="{
+                                            'bg-red-50 text-red-600 border-red-100': task.priority === 'P0',
+                                            'bg-orange-50 text-orange-600 border-orange-100': task.priority === 'P1',
+                                            'bg-yellow-50 text-yellow-600 border-yellow-100': task.priority === 'P2',
+                                            'bg-blue-50 text-blue-600 border-blue-100': task.priority === 'P3',
+                                            'bg-zinc-50 text-zinc-500 border-zinc-200': task.priority === 'P4'
+                                        }" x-text="task.priority"></span>
                                 </div>
                                 <p class="text-sm text-zinc-500 truncate" x-text="task.description || 'No description'">
                                 </p>
@@ -342,7 +345,15 @@
                                             'border-amber-500': task.status === 'PENDING',
                                             'border-red-500': task.status === 'REJECTED'
                                         }" :title="task.title + ' (' + task.status + ')'">
-                                        <div class="font-medium text-zinc-900 truncate" x-text="task.title"></div>
+                                        <div class="flex justify-between items-start">
+                                            <div class="font-medium text-zinc-900 truncate flex-1" x-text="task.title">
+                                            </div>
+                                            <span class="text-[9px] font-bold ml-1 px-1 rounded" :class="{
+                                                'bg-red-100 text-red-700': task.priority === 'P0',
+                                                'bg-orange-100 text-orange-700': task.priority === 'P1',
+                                                'bg-zinc-100 text-zinc-500': task.priority > 'P1'
+                                            }" x-text="task.priority"></span>
+                                        </div>
                                         <div class="text-[10px] text-zinc-400 mt-1 truncate"
                                             x-text="task.assignedUser?.username"></div>
                                     </div>
@@ -353,153 +364,159 @@
                 </div>
 
             </main>
-        </div>
 
-        <!-- Create Task Modal -->
-        <dialog id="task_modal" class="modal" :class="{'modal-open': showTaskModal}">
-            <div class="modal-box bg-white rounded-xl shadow-xl border border-zinc-100 p-0 overflow-hidden max-w-lg">
-                <div class="px-6 py-4 border-b border-zinc-100 flex justify-between items-center bg-zinc-50/50">
-                    <h3 class="font-semibold text-zinc-900">Create New Task</h3>
-                    <button @click="showTaskModal = false" class="text-zinc-400 hover:text-zinc-600">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
-                    </button>
-                </div>
-                <form @submit.prevent="createTask" class="p-6 space-y-4">
-                    <div>
-                        <label
-                            class="block text-xs font-medium text-zinc-500 uppercase tracking-wider mb-1.5">Title</label>
-                        <input type="text" x-model="newTask.title" required
-                            class="w-full rounded-lg border-zinc-200 text-sm focus:border-zinc-400 focus:ring-0">
+            <!-- Create Task Modal -->
+            <div id="task_modal" class="modal" :class="{'modal-open': showTaskModal}" role="dialog">
+                <div
+                    class="modal-box bg-white rounded-xl shadow-xl border border-zinc-100 p-0 overflow-hidden max-w-lg">
+                    <div class="px-6 py-4 border-b border-zinc-100 flex justify-between items-center bg-zinc-50/50">
+                        <h3 class="font-semibold text-zinc-900">Create New Task</h3>
+                        <button @click="showTaskModal = false" class="text-zinc-400 hover:text-zinc-600">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
                     </div>
-                    <div>
-                        <label
-                            class="block text-xs font-medium text-zinc-500 uppercase tracking-wider mb-1.5">Description</label>
-                        <textarea x-model="newTask.description" rows="3"
-                            class="w-full rounded-lg border-zinc-200 text-sm focus:border-zinc-400 focus:ring-0 resize-none"></textarea>
-                    </div>
-                    <div class="grid grid-cols-2 gap-4">
+                    <form @submit.prevent="createTask" class="p-6 space-y-4">
                         <div>
                             <label
-                                class="block text-xs font-medium text-zinc-500 uppercase tracking-wider mb-1.5">Priority
-                                (1-5)</label>
-                            <input type="number" x-model="newTask.priority" min="1" max="5"
-                                class="w-full rounded-lg border-zinc-200 text-sm focus:border-zinc-400 focus:ring-0">
+                                class="block text-xs font-medium text-zinc-500 uppercase tracking-wider mb-1.5">Title</label>
+                            <input type="text" x-model="newTask.title" required
+                                class="w-full rounded-lg border border-zinc-300 text-sm focus:border-zinc-500 focus:ring-0">
                         </div>
-                        <div x-show="hasRole('ADMIN') || hasRole('MANAGER') || allUsers.length > 0">
+                        <div>
                             <label
-                                class="block text-xs font-medium text-zinc-500 uppercase tracking-wider mb-1.5">Assign
-                                To</label>
-                            <select x-model="newTask.assignedUserId"
-                                class="w-full rounded-lg border-zinc-200 text-sm focus:border-zinc-400 focus:ring-0">
-                                <option value="">Myself</option>
-                                <template x-for="user in allUsers" :key="user.id">
-                                    <option :value="user.id" x-text="user.username + ' (' + user.role + ')'"></option>
-                                </template>
-                            </select>
+                                class="block text-xs font-medium text-zinc-500 uppercase tracking-wider mb-1.5">Description</label>
+                            <textarea x-model="newTask.description" rows="3"
+                                class="w-full rounded-lg border border-zinc-300 text-sm focus:border-zinc-500 focus:ring-0 resize-none"></textarea>
                         </div>
-                    </div>
-                    <div class="pt-4 flex justify-end gap-2">
-                        <button type="button" @click="showTaskModal = false"
-                            class="btn btn-sm btn-ghost font-normal normal-case text-zinc-600">Cancel</button>
-                        <button type="submit"
-                            class="btn btn-sm bg-zinc-900 text-white hover:bg-zinc-800 border-none font-normal normal-case">Create
-                            Task</button>
-                    </div>
-                </form>
-            </div>
-            <form method="dialog" class="modal-backdrop" @click="showTaskModal = false">
-                <button>close</button>
-            </form>
-        </dialog>
-
-        <!-- User Management Modal -->
-        <dialog id="user_modal" class="modal" :class="{'modal-open': showUserModal}">
-            <div
-                class="modal-box bg-white rounded-xl shadow-xl border border-zinc-100 p-0 overflow-hidden w-11/12 max-w-4xl">
-                <div class="px-6 py-4 border-b border-zinc-100 flex justify-between items-center bg-zinc-50/50">
-                    <h3 class="font-semibold text-zinc-900">User Management</h3>
-                    <button @click="showUserModal = false" class="text-zinc-400 hover:text-zinc-600">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
-                    </button>
-                </div>
-
-                <div class="p-6">
-                    <!-- Create User Form -->
-                    <form @submit.prevent="createUser"
-                        class="mb-8 p-4 bg-zinc-50 rounded-lg border border-zinc-100 flex flex-wrap gap-3 items-end">
-                        <div class="flex-1 min-w-[150px]">
-                            <label
-                                class="block text-[10px] font-medium text-zinc-400 uppercase tracking-wider mb-1">Username</label>
-                            <input type="text" x-model="newUser.username" required
-                                class="w-full rounded border-zinc-200 text-sm p-1.5">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label
+                                    class="block text-xs font-medium text-zinc-500 uppercase tracking-wider mb-1.5">Priority</label>
+                                <select x-model="newTask.priority"
+                                    class="w-full rounded-lg border border-zinc-200 text-sm focus:border-zinc-400 focus:ring-0">
+                                    <option value="P0">P0 - Highest</option>
+                                    <option value="P1">P1 - High</option>
+                                    <option value="P2">P2 - Medium</option>
+                                    <option value="P3">P3 - Low</option>
+                                    <option value="P4">P4 - Lowest</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label
+                                    class="block text-xs font-medium text-zinc-500 uppercase tracking-wider mb-1.5">Assign
+                                    To</label>
+                                <select x-model="newTask.assignedUserId"
+                                    class="w-full rounded-lg border border-zinc-200 text-sm focus:border-zinc-400 focus:ring-0">
+                                    <option value="" x-text="'Myself (' + (auth.user?.username || '') + ')'"></option>
+                                    <template x-for="user in allUsers.filter(u => u.id !== auth.user?.id)"
+                                        :key="user.id">
+                                        <option :value="user.id" x-text="user.username + ' (' + user.role + ')'">
+                                        </option>
+                                    </template>
+                                </select>
+                            </div>
                         </div>
-                        <div class="flex-1 min-w-[150px]">
-                            <label
-                                class="block text-[10px] font-medium text-zinc-400 uppercase tracking-wider mb-1">Password</label>
-                            <input type="password" x-model="newUser.password" required
-                                class="w-full rounded border-zinc-200 text-sm p-1.5">
+                        <div class="pt-4 flex justify-end gap-2">
+                            <button type="button" @click="showTaskModal = false"
+                                class="btn btn-sm btn-ghost font-normal normal-case text-zinc-600">Cancel</button>
+                            <button type="submit"
+                                class="btn btn-sm bg-zinc-900 text-white hover:bg-zinc-800 border-none font-normal normal-case">Create
+                                Task</button>
                         </div>
-                        <div class="flex-1 min-w-[180px]">
-                            <label
-                                class="block text-[10px] font-medium text-zinc-400 uppercase tracking-wider mb-1">Email</label>
-                            <input type="email" x-model="newUser.email"
-                                class="w-full rounded border-zinc-200 text-sm p-1.5">
-                        </div>
-                        <div class="w-[120px]">
-                            <label
-                                class="block text-[10px] font-medium text-zinc-400 uppercase tracking-wider mb-1">Role</label>
-                            <select x-model="newUser.role" class="w-full rounded border-zinc-200 text-sm p-1.5">
-                                <option value="USER">User</option>
-                                <option value="MANAGER">Manager</option>
-                                <option value="ADMIN">Admin</option>
-                            </select>
-                        </div>
-                        <button type="submit"
-                            class="btn btn-sm bg-zinc-900 text-white hover:bg-zinc-800 border-none font-normal normal-case h-[34px]">Add</button>
                     </form>
+                </div>
+                <div class="modal-backdrop" @click="showTaskModal = false"></div>
+            </div>
 
-                    <!-- User List -->
-                    <div class="overflow-x-auto">
-                        <table class="table table-sm w-full">
-                            <thead>
-                                <tr class="text-zinc-400 border-b-zinc-200">
-                                    <th>Username</th>
-                                    <th>Role</th>
-                                    <th>Manager</th>
-                                    <th>Email</th>
-                                    <th class="text-right">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <template x-for="u in userList" :key="u.id">
-                                    <tr class="hover:bg-zinc-50 border-b-zinc-100 text-zinc-700">
-                                        <td class="font-medium text-zinc-900" x-text="u.username"></td>
-                                        <td><span class="badge badge-sm badge-ghost font-normal" x-text="u.role"></span>
-                                        </td>
-                                        <td x-text="u.manager?.username || '-'"></td>
-                                        <td x-text="u.email || '-'"></td>
-                                        <td class="text-right gap-2">
-                                            <button @click="deleteUser(u.id)"
-                                                class="text-zinc-400 hover:text-red-500 text-xs">Delete</button>
-                                        </td>
+            <!-- User Management Modal -->
+            <div id="user_modal" class="modal" :class="{'modal-open': showUserModal}" role="dialog">
+                <div
+                    class="modal-box bg-white rounded-xl shadow-xl border border-zinc-100 p-0 overflow-hidden w-11/12 max-w-4xl">
+                    <div class="px-6 py-4 border-b border-zinc-100 flex justify-between items-center bg-zinc-50/50">
+                        <h3 class="font-semibold text-zinc-900">User Management</h3>
+                        <button @click="showUserModal = false" class="text-zinc-400 hover:text-zinc-600">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="p-6">
+                        <!-- Create User Form -->
+                        <form @submit.prevent="createUser"
+                            class="mb-8 p-4 bg-zinc-50 rounded-lg border border-zinc-100 flex flex-wrap gap-3 items-end">
+                            <div class="flex-1 min-w-[150px]">
+                                <label
+                                    class="block text-[10px] font-medium text-zinc-400 uppercase tracking-wider mb-1">Username</label>
+                                <input type="text" x-model="newUser.username" required
+                                    class="w-full rounded border-zinc-300 bg-white text-sm p-1.5 focus:border-zinc-500 focus:ring-0">
+                            </div>
+                            <div class="flex-1 min-w-[150px]">
+                                <label
+                                    class="block text-[10px] font-medium text-zinc-500 uppercase tracking-wider mb-1">Password</label>
+                                <input type="password" x-model="newUser.password" required
+                                    class="w-full rounded border-zinc-300 bg-white text-sm p-1.5 focus:border-zinc-500 focus:ring-0">
+                            </div>
+                            <div class="flex-1 min-w-[180px]">
+                                <label
+                                    class="block text-[10px] font-medium text-zinc-500 uppercase tracking-wider mb-1">Email</label>
+                                <input type="email" x-model="newUser.email"
+                                    class="w-full rounded border-zinc-300 bg-white text-sm p-1.5 focus:border-zinc-500 focus:ring-0">
+                            </div>
+                            <div class="w-[120px]">
+                                <label
+                                    class="block text-[10px] font-medium text-zinc-500 uppercase tracking-wider mb-1">Role</label>
+                                <select x-model="newUser.role"
+                                    class="w-full rounded border-zinc-300 bg-white text-sm p-1.5 focus:border-zinc-500 focus:ring-0">
+                                    <option value="USER">User</option>
+                                    <template x-if="hasRole('ADMIN')">
+                                        <option value="MANAGER">Manager</option>
+                                    </template>
+                                </select>
+                            </div>
+                            <button type="submit"
+                                class="btn btn-sm bg-zinc-900 text-white hover:bg-zinc-800 border-none font-normal normal-case h-[34px]">Add</button>
+                        </form>
+
+                        <!-- User List -->
+                        <div class="overflow-x-auto">
+                            <table class="table table-sm w-full">
+                                <thead>
+                                    <tr class="text-zinc-400 border-b-zinc-200">
+                                        <th>Username</th>
+                                        <th>Role</th>
+                                        <th>Manager</th>
+                                        <th>Email</th>
+                                        <th class="text-right">Actions</th>
                                     </tr>
-                                </template>
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    <template x-for="u in userList" :key="u.id">
+                                        <tr class="hover:bg-zinc-50 border-b-zinc-100 text-zinc-700">
+                                            <td class="font-medium text-zinc-900" x-text="u.username"></td>
+                                            <td><span class="badge badge-sm badge-ghost font-normal"
+                                                    x-text="u.role"></span>
+                                            </td>
+                                            <td x-text="u.manager?.username || '-'"></td>
+                                            <td x-text="u.email || '-'"></td>
+                                            <td class="text-right gap-2">
+                                                <button @click="deleteUser(u.id)"
+                                                    class="text-zinc-400 hover:text-red-500 text-xs">Delete</button>
+                                            </td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
+                <div class="modal-backdrop" @click="showUserModal = false"></div>
             </div>
-            <form method="dialog" class="modal-backdrop" @click="showUserModal = false">
-                <button>close</button>
-            </form>
-        </dialog>
-
+        </div>
     </template>
 
     <script src="/js/app.js"></script>

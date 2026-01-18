@@ -64,8 +64,14 @@ public class TaskService {
         }
     }
 
-    public List<Task> getAllTasks() {
-        return taskRepository.findAll();
+    public List<Task> getAllTasks(com.example.taskmanager.entity.User user) {
+        if (user.getRole() == com.example.taskmanager.entity.Role.ADMIN) {
+            return taskRepository.findAll();
+        } else if (user.getRole() == com.example.taskmanager.entity.Role.MANAGER) {
+            return taskRepository.findTasksForManager(user.getId());
+        } else {
+            return taskRepository.findTasksForUser(user.getId());
+        }
     }
 
     public Task updateTaskStatus(Long id, TaskStatus status) {
@@ -74,13 +80,14 @@ public class TaskService {
         return taskRepository.save(task);
     }
 
-    public void exportTasksToCsv(java.io.Writer writer) throws java.io.IOException {
-        List<Task> tasks = taskRepository.findAll();
+    public void exportTasksToCsv(java.io.Writer writer, com.example.taskmanager.entity.User user)
+            throws java.io.IOException {
+        List<Task> tasks = getAllTasks(user);
         try (java.io.PrintWriter printer = new java.io.PrintWriter(writer)) {
             writer.write('\uFEFF'); // Write BOM for Excel
             printer.println("Task ID,Title,Description,Status,Priority,Assigned User,Created Date");
             for (Task task : tasks) {
-                printer.println(String.format("%d,%s,%s,%s,%d,%s,%s",
+                printer.println(String.format("%d,%s,%s,%s,%s,%s,%s",
                         task.getId(),
                         escapeSpecialCharacters(task.getTitle()),
                         escapeSpecialCharacters(task.getDescription()),

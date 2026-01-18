@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -22,13 +21,14 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
+                .anonymous(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**", "/public/**", "/", "/index.html", "/css/**", "/js/**")
+                        .requestMatchers("/api/auth/login", "/api/auth/me", "/public/**", "/", "/index.html", "/css/**",
+                                "/js/**")
                         .permitAll()
                         .requestMatchers(HttpMethod.PUT, "/api/tasks/*/approve").hasAnyRole("MANAGER", "ADMIN")
                         .requestMatchers("/api/users/**").hasAnyRole("ADMIN", "MANAGER")
                         .anyRequest().authenticated())
-                .httpBasic(Customizer.withDefaults())
                 .formLogin(form -> form
                         .loginPage("/index.html")
                         .loginProcessingUrl("/login")

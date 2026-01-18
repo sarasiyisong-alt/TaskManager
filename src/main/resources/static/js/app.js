@@ -29,7 +29,7 @@ function app() {
         newTask: {
             title: '',
             description: '',
-            priority: 3,
+            priority: 'P2',
             assignedUserId: ''
         },
 
@@ -46,11 +46,12 @@ function app() {
         currentWeekStart: new Date(),
 
         initApp() {
-            // Align currentWeekStart to Sunday
-            const d = new Date();
-            const day = d.getDay();
-            const diff = d.getDate() - day;
-            this.currentWeekStart = new Date(d.setDate(diff));
+            // Align currentWeekStart to Sunday (UTC)
+            const now = new Date();
+            const utc = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+            const day = utc.getUTCDay(); // Sunday is 0
+            utc.setUTCDate(utc.getUTCDate() - day);
+            this.currentWeekStart = utc;
 
             this.checkAuth();
         },
@@ -62,14 +63,18 @@ function app() {
             try {
                 const res = await fetch('/api/auth/me');
                 if (res.ok) {
-                    const user = await res.json();
-                    this.auth.user = user;
-                    this.auth.token = true; // logged in
-                    this.fetchTasks();
-
-                    if (this.hasRole('ADMIN') || this.hasRole('MANAGER')) {
-                        this.fetchUsers(); // for list and dropdown
-                        this.fetchAllUsersForDropdown();
+                    const data = await res.json();
+                    if (data.authenticated && data.username !== 'anonymousUser') {
+                        this.auth.user = data;
+                        this.auth.token = true;
+                        this.fetchTasks();
+                        if (this.hasRole('ADMIN') || this.hasRole('MANAGER')) {
+                            this.fetchUsers();
+                            this.fetchAllUsersForDropdown();
+                        }
+                    } else {
+                        this.auth.user = null;
+                        this.auth.token = false;
                     }
                 } else {
                     this.auth.user = null;
@@ -218,7 +223,7 @@ function app() {
                 // Sorting
                 data.sort((a, b) => {
                     if (this.filters.sortBy === 'priority') {
-                        return a.priority - b.priority;
+                        return a.priority.localeCompare(b.priority);
                     } else {
                         // Date newest first
                         return new Date(b.createdDate) - new Date(a.createdDate);
@@ -235,7 +240,7 @@ function app() {
             this.newTask = {
                 title: '',
                 description: '',
-                priority: 3,
+                priority: 'P2',
                 assignedUserId: '' // default logic handled by backend usually, or passing null
             };
             this.showTaskModal = true;
@@ -245,7 +250,7 @@ function app() {
             const payload = {
                 title: this.newTask.title,
                 description: this.newTask.description,
-                priority: parseInt(this.newTask.priority),
+                priority: this.newTask.priority,
                 assignedUserId: this.newTask.assignedUserId ? parseInt(this.newTask.assignedUserId) : null
             };
 
@@ -330,39 +335,41 @@ function app() {
         jumpToDate(dateStr) {
             if (!dateStr) return;
             const d = new Date(dateStr);
-            const day = d.getDay();
-            const diff = d.getDate() - day;
-            this.currentWeekStart = new Date(d.setDate(diff));
+            const utc = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()));
+            const day = utc.getUTCDay();
+            utc.setUTCDate(utc.getUTCDate() - day);
+            this.currentWeekStart = utc;
         },
 
         get weekRangeText() {
             const start = this.currentWeekStart;
             const end = new Date(start);
-            end.setDate(start.getDate() + 6);
-            const opts = { month: 'short', day: 'numeric' };
-            return `${start.toLocaleDateString(undefined, opts)} - ${end.toLocaleDateString(undefined, opts)}`;
+            end.setUTCDate(start.getUTCDate() + 6);
+
+            const format = (d) => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' });
+            return `${format(start)} - ${format(end)} (UTC)`;
         },
 
         get calendarDays() {
             const days = [];
-            const today = new Date();
+            const now = new Date();
+            const todayUTCStr = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate())).toISOString().split('T')[0];
+
             for (let i = 0; i < 7; i++) {
                 const d = new Date(this.currentWeekStart);
-                d.setDate(d.getDate() + i);
+                d.setUTCDate(d.getUTCDate() + i);
 
                 const dateStr = d.toISOString().split('T')[0];
                 const dayTasks = this.tasks.filter(t => {
-                    // Task createdDate is ISO timestamp probably, or array?
-                    // Original code: new Date(t.createdDate).toDateString()
-                    // Assuming ISO string
-                    const tDate = new Date(t.createdDate);
-                    return tDate.toDateString() === d.toDateString();
+                    if (!t.createdDate) return false;
+                    const tDateStr = new Date(t.createdDate).toISOString().split('T')[0];
+                    return tDateStr === dateStr;
                 });
 
                 days.push({
-                    dayNum: d.getDate(),
+                    dayNum: d.getUTCDate(),
                     dateStr: dateStr,
-                    isToday: d.toDateString() === today.toDateString(),
+                    isToday: dateStr === todayUTCStr,
                     tasks: dayTasks
                 });
             }
@@ -373,7 +380,8 @@ function app() {
 
         formatDate(isoStr) {
             if (!isoStr) return '';
-            return new Date(isoStr).toLocaleDateString();
+            const d = new Date(isoStr);
+            return d.toISOString().replace('T', ' ').substring(0, 16) + ' UTC';
         },
 
         getStatusBadgeClass(status) {
