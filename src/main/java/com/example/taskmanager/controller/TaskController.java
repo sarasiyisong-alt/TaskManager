@@ -39,6 +39,14 @@ public class TaskController {
         return taskService.updateTaskStatus(id, status);
     }
 
+    @DeleteMapping("/{id}")
+    public void deleteTask(@PathVariable Long id) {
+        String username = org.springframework.security.core.context.SecurityContextHolder.getContext()
+                .getAuthentication().getName();
+        com.example.taskmanager.entity.User user = userService.getUserByUsername(username);
+        taskService.deleteTask(id, user);
+    }
+
     @GetMapping("/export")
     public void exportTasks(jakarta.servlet.http.HttpServletResponse response) throws java.io.IOException {
         response.setContentType("text/csv; charset=UTF-8");

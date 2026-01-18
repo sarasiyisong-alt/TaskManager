@@ -104,4 +104,20 @@ public class TaskService {
         }
         return escapedData;
     }
+
+    public void deleteTask(Long id, com.example.taskmanager.entity.User requester) {
+        Task task = taskRepository.findById(id).orElseThrow(() -> new RuntimeException("Task not found"));
+
+        // Permission Check: Admin or Creator only
+        boolean isAdmin = requester.getRole() == com.example.taskmanager.entity.Role.ADMIN;
+        boolean isCreator = task.getCreateUserId().equals(requester.getId());
+
+        if (!isAdmin && !isCreator) {
+            throw new org.springframework.web.server.ResponseStatusException(
+                    org.springframework.http.HttpStatus.FORBIDDEN,
+                    "Only Admin or the Task Creator can delete this task.");
+        }
+
+        taskRepository.delete(task);
+    }
 }

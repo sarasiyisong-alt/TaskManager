@@ -2,6 +2,7 @@ package com.example.taskmanager.service;
 
 import com.example.taskmanager.entity.Role;
 import com.example.taskmanager.entity.User;
+import com.example.taskmanager.repository.TaskRepository;
 import com.example.taskmanager.repository.UserRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,6 +23,9 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private TaskRepository taskRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -94,6 +99,7 @@ public class UserService implements UserDetailsService {
         return List.of();
     }
 
+    @Transactional
     public void deleteUser(Long id, User modifier) {
         User target = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
 
@@ -102,6 +108,34 @@ public class UserService implements UserDetailsService {
                 throw new RuntimeException("Managers can only delete their own users.");
             }
         }
+
+        // Feature Change: Prevent deletion if user is assigned to any tasks
+        List<com.example.taskmanager.entity.Task> assignedTasks = taskRepository.findByAssignedUser(target);
+        if (!assignedTasks.isEmpty()) {
+            throw new org.springframework.web.server.ResponseStatusException(
+                    org.springframework.http.HttpStatus.BAD_REQUEST,
+                    "Cannot delete user/manager with at least 1 task assigned");
+        }
+
+        // Cleanup relationships to prevent ConstraintViolationException
+        // 1. Unlink managed users (if any)
+        List<User> managedUsers = userRepository.findByManager(target);
+        for (User u : managedUsers) {
+            u.setManager(null);
+            userRepository.save(u);
+        }
+
+        // 2. Assigned tasks cleanup is no longer needed as we block deletion if any
+        // exist.
+
+        // 3. Unlink created tasks
+        List<com.example.taskmanager.entity.Task> createdTasks = taskRepository.findByCreateUser(target);
+        for (com.example.taskmanager.entity.Task t : createdTasks) {
+            t.setCreateUser(null);
+            t.setCreateUserId(null);
+            taskRepository.save(t);
+        }
+
         userRepository.deleteById(id);
     }
 

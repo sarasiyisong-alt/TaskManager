@@ -284,9 +284,35 @@ function renderTaskList(tasks) {
                 Creator: <b>${creatorName}</b> | Assignee: <b>${assigneeName}</b>
             </div>
             ${actions}
+            <div style="margin-top: 10px;">
+                 ${canDelete(task) ? `<button class="btn-delete" onclick="deleteTask(${task.id})">Delete Task</button>` : ''}
+            </div>
         `;
         list.appendChild(card);
     });
+}
+
+function canDelete(task) {
+    if (!currentUser) return false;
+    const role = currentUser.roles[0].authority;
+    if (role === 'ROLE_ADMIN') return true;
+    if (task.createUser && task.createUser.id === currentUser.id) return true;
+    return false;
+}
+
+function deleteTask(id) {
+    if (confirm("Are you sure you want to delete this task?")) {
+        fetch(`/api/tasks/${id}`, { method: 'DELETE' })
+            .then(res => {
+                if (res.ok) {
+                    fetchTasks();
+                } else {
+                    res.json().then(json => alert("Failed to delete: " + (json.message || json.error)))
+                        .catch(() => res.text().then(text => alert("Failed to delete: " + text)));
+                }
+            })
+            .catch(err => alert("Error: " + err));
+    }
 }
 
 function updateStatus(id, status) {
@@ -342,7 +368,10 @@ function deleteUser(id) {
     if (confirm('Are you sure?')) {
         fetch(`/api/users/${id}`, { method: 'DELETE' })
             .then(res => {
-                if (!res.ok) return res.text().then(text => alert(text));
+                if (!res.ok) {
+                    return res.json().then(json => alert(json.message || json.error))
+                        .catch(() => res.text().then(text => alert(text)));
+                }
                 fetchUsers();
                 if (currentUser.roles[0].authority !== 'ROLE_USER') fetchAllUsersForAssignment();
             });
@@ -440,6 +469,7 @@ function renderCalendar(tasks) {
 
 window.updateStatus = updateStatus;
 window.deleteUser = deleteUser;
+window.deleteTask = deleteTask;
 window.openEditUser = openEditUser;
 window.switchView = switchView; // not strictly needed for onclick unless I put it in HTML
 
