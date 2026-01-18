@@ -1,0 +1,904 @@
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::staticFieldBase has been called by com.google.inject.internal.aop.HiddenClassDefiner (file:/opt/homebrew/Cellar/maven/3.9.11/libexec/lib/guice-5.1.0-classes.jar)
+WARNING: Please consider reporting this to the maintainers of class com.google.inject.internal.aop.HiddenClassDefiner
+WARNING: sun.misc.Unsafe::staticFieldBase will be removed in a future release
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------------< com.example:taskmanager >-----------------------
+[INFO] Building taskmanager 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ taskmanager ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] Copying 2 resources from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ taskmanager ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ taskmanager ---
+[INFO] Copying 1 resource from src/test/resources to target/test-classes
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ taskmanager ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.5.2:test (default-test) @ taskmanager ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.example.taskmanager.e2e.TaskManagementBrowserTest
+22:39:35.996 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.taskmanager.e2e.TaskManagementBrowserTest]: TaskManagementBrowserTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+22:39:36.044 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.taskmanager.TaskManagerApplication for test class com.example.taskmanager.e2e.TaskManagementBrowserTest
+22:39:36.243 [main] INFO io.github.bonigarcia.wdm.WebDriverManager -- Using chromedriver 144.0.7559.31 (resolved driver for Chrome 144)
+22:39:36.251 [main] INFO io.github.bonigarcia.wdm.WebDriverManager -- Exporting webdriver.chrome.driver as /Users/siyisong/.cache/selenium/chromedriver/mac-arm64/144.0.7559.31/chromedriver
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.1)
+
+2026-01-17T22:39:36.357-06:00  INFO 10250 --- [           main] c.e.t.e2e.TaskManagementBrowserTest      : Starting TaskManagementBrowserTest using Java 24.0.2 with PID 10250 (started by siyisong in /Users/siyisong/Documents/TaskManager)
+2026-01-17T22:39:36.357-06:00  INFO 10250 --- [           main] c.e.t.e2e.TaskManagementBrowserTest      : The following 1 profile is active: "test"
+2026-01-17T22:39:36.575-06:00  INFO 10250 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-17T22:39:36.601-06:00  INFO 10250 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 22 ms. Found 2 JPA repository interfaces.
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by org.apache.tomcat.jni.Library in an unnamed module (file:/Users/siyisong/.m2/repository/org/apache/tomcat/embed/tomcat-embed-core/10.1.34/tomcat-embed-core-10.1.34.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+2026-01-17T22:39:36.805-06:00  INFO 10250 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 0 (http)
+2026-01-17T22:39:36.811-06:00  INFO 10250 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-01-17T22:39:36.811-06:00  INFO 10250 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.34]
+2026-01-17T22:39:36.829-06:00  INFO 10250 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-01-17T22:39:36.829-06:00  INFO 10250 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 462 ms
+2026-01-17T22:39:36.893-06:00  INFO 10250 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-17T22:39:36.913-06:00  INFO 10250 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.4.Final
+2026-01-17T22:39:36.923-06:00  INFO 10250 --- [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-01-17T22:39:37.013-06:00  INFO 10250 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-17T22:39:37.024-06:00  INFO 10250 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-01-17T22:39:37.093-06:00  INFO 10250 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2026-01-17T22:39:37.094-06:00  INFO 10250 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-01-17T22:39:37.103-06:00  WARN 10250 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-01-17T22:39:37.110-06:00  INFO 10250 --- [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-01-17T22:39:37.421-06:00  INFO 10250 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+Hibernate: drop table if exists tasks cascade 
+Hibernate: drop table if exists users cascade 
+Hibernate: create table tasks (priority integer, assigned_user_id bigint, create_user_id bigint, created_date timestamp(6), id bigint generated by default as identity, description varchar(255), title varchar(255) not null, status enum ('APPROVED','PENDING','REJECTED'), primary key (id))
+Hibernate: create table users (id bigint generated by default as identity, manager_id bigint, email varchar(255), password varchar(255) not null, username varchar(255) not null unique, role enum ('ADMIN','MANAGER','USER') not null, primary key (id))
+Hibernate: alter table if exists tasks add constraint FK447x172gvsq2ajfbcenhtkhc8 foreign key (assigned_user_id) references users
+Hibernate: alter table if exists tasks add constraint FKolfwt62wlloqsc5vvfgjcgt0q foreign key (create_user_id) references users
+Hibernate: alter table if exists users add constraint FK5p1ci5btqfwvtaqx5n2wxi182 foreign key (manager_id) references users
+2026-01-17T22:39:37.439-06:00  INFO 10250 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+Hibernate: select u1_0.id,u1_0.email,u1_0.manager_id,u1_0.password,u1_0.role,u1_0.username from users u1_0 where u1_0.username=?
+Hibernate: insert into users (email,manager_id,password,role,username,id) values (?,?,?,?,?,default)
+Hibernate: select u1_0.id,u1_0.email,u1_0.manager_id,u1_0.password,u1_0.role,u1_0.username from users u1_0 where u1_0.username=?
+Hibernate: insert into users (email,manager_id,password,role,username,id) values (?,?,?,?,?,default)
+Hibernate: select u1_0.id,u1_0.email,u1_0.manager_id,u1_0.password,u1_0.role,u1_0.username from users u1_0 where u1_0.username=?
+Hibernate: insert into users (email,manager_id,password,role,username,id) values (?,?,?,?,?,default)
+2026-01-17T22:39:37.861-06:00  WARN 10250 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-01-17T22:39:37.871-06:00  INFO 10250 --- [           main] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2026-01-17T22:39:37.871-06:00  WARN 10250 --- [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2026-01-17T22:39:37.896-06:00  INFO 10250 --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-01-17T22:39:38.067-06:00  INFO 10250 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 54861 (http) with context path '/'
+2026-01-17T22:39:38.071-06:00  INFO 10250 --- [           main] c.e.t.e2e.TaskManagementBrowserTest      : Started TaskManagementBrowserTest in 1.81 seconds (process running for 2.333)
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build what is described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org/mockito/Mockito.html#0.3
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+WARNING: A Java agent has been loaded dynamically (/Users/siyisong/.m2/repository/net/bytebuddy/byte-buddy-agent/1.15.11/byte-buddy-agent-1.15.11.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by net.bytebuddy.dynamic.loading.ClassInjector$UsingUnsafe$Dispatcher$CreationAction (file:/Users/siyisong/.m2/repository/net/bytebuddy/byte-buddy/1.15.11/byte-buddy-1.15.11.jar)
+WARNING: Please consider reporting this to the maintainers of class net.bytebuddy.dynamic.loading.ClassInjector$UsingUnsafe$Dispatcher$CreationAction
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+2026-01-17T22:39:38.935-06:00  WARN 10250 --- [           main] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 144
+2026-01-17T22:39:38.936-06:00  WARN 10250 --- [           main] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 144.0.7559.59. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.25.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2026-01-17T22:39:38.967-06:00  INFO 10250 --- [o-auto-1-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-01-17T22:39:38.967-06:00  INFO 10250 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-01-17T22:39:38.967-06:00  INFO 10250 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2026-01-17T22:39:54.236-06:00  WARN 10250 --- [           main] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 144
+2026-01-17T22:39:54.237-06:00  WARN 10250 --- [           main] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 144.0.7559.59. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.25.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+Page Source at failure:
+<html lang="en" class="bg-zinc-50 text-zinc-900 antialiased"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS & DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.6.0/dist/full.min.css" rel="stylesheet" type="text/css">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Alpine.js -->
+    <script defer="" src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        zinc: {
+                            50: '#fafafa',
+                            100: '#f4f4f5',
+                            200: '#e4e4e7',
+                            300: '#d4d4d8',
+                            400: '#a1a1aa',
+                            500: '#71717a',
+                            600: '#52525b',
+                            700: '#3f3f46',
+                            800: '#27272a',
+                            900: '#18181b',
+                            950: '#09090b',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] {
+            display: none !important;
+        }
+
+        /* Custom scrollbar for a cleaner look */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #e4e4e7;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d4d4d8;
+        }
+    </style>
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:Inter, sans-serif;font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.pointer-events-none{pointer-events:none}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.sticky{position:sticky}.inset-0{inset:0px}.right-0{right:0px}.top-0{top:0px}.top-1\/2{top:50%}.z-50{z-index:50}.z-30{z-index:30}.mx-2{margin-left:0.5rem;margin-right:0.5rem}.mx-auto{margin-left:auto;margin-right:auto}.mb-1\.5{margin-bottom:0.375rem}.mb-2{margin-bottom:0.5rem}.mb-8{margin-bottom:2rem}.mt-2{margin-top:0.5rem}.mt-8{margin-top:2rem}.mb-1{margin-bottom:0.25rem}.mb-6{margin-bottom:1.5rem}.block{display:block}.flex{display:flex}.grid{display:grid}.h-16{height:4rem}.h-4{height:1rem}.h-5{height:1.25rem}.h-6{height:1.5rem}.min-h-screen{min-height:100vh}.min-h-\[500px\]{min-height:500px}.w-full{width:100%}.w-4{width:1rem}.w-5{width:1.25rem}.w-6{width:1.5rem}.w-fit{width:-moz-fit-content;width:fit-content}.max-w-sm{max-width:24rem}.max-w-7xl{max-width:80rem}.flex-1{flex:1 1 0%}.-translate-y-1\/2{--tw-translate-y:-50%;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.cursor-pointer{cursor:pointer}.appearance-none{-webkit-appearance:none;appearance:none}.grid-cols-7{grid-template-columns:repeat(7, minmax(0, 1fr))}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-2{gap:0.5rem}.gap-3{gap:0.75rem}.gap-4{gap:1rem}.gap-6{gap:1.5rem}.space-y-1 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.25rem * var(--tw-space-y-reverse))}.space-y-4 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1rem * var(--tw-space-y-reverse))}.space-y-3 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.75rem * var(--tw-space-y-reverse))}.divide-x > :not([hidden]) ~ :not([hidden]){--tw-divide-x-reverse:0;border-right-width:calc(1px * var(--tw-divide-x-reverse));border-left-width:calc(1px * calc(1 - var(--tw-divide-x-reverse)))}.divide-zinc-100 > :not([hidden]) ~ :not([hidden]){--tw-divide-opacity:1;border-color:rgb(244 244 245 / var(--tw-divide-opacity, 1))}.overflow-hidden{overflow:hidden}.rounded-lg{border-radius:0.5rem}.rounded-xl{border-radius:0.75rem}.rounded{border-radius:0.25rem}.rounded-md{border-radius:0.375rem}.border{border-width:1px}.border-b{border-bottom-width:1px}.border-none{border-style:none}.border-zinc-100{--tw-border-opacity:1;border-color:rgb(244 244 245 / var(--tw-border-opacity, 1))}.border-zinc-200{--tw-border-opacity:1;border-color:rgb(228 228 231 / var(--tw-border-opacity, 1))}.border-zinc-300{--tw-border-opacity:1;border-color:rgb(212 212 216 / var(--tw-border-opacity, 1))}.bg-white\/80{background-color:rgb(255 255 255 / 0.8)}.bg-zinc-50{--tw-bg-opacity:1;background-color:rgb(250 250 250 / var(--tw-bg-opacity, 1))}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255 / var(--tw-bg-opacity, 1))}.bg-zinc-900{--tw-bg-opacity:1;background-color:rgb(24 24 27 / var(--tw-bg-opacity, 1))}.bg-transparent{background-color:transparent}.bg-zinc-100{--tw-bg-opacity:1;background-color:rgb(244 244 245 / var(--tw-bg-opacity, 1))}.bg-zinc-50\/30{background-color:rgb(250 250 250 / 0.3)}.bg-zinc-50\/50{background-color:rgb(250 250 250 / 0.5)}.p-4{padding:1rem}.p-8{padding:2rem}.p-1{padding:0.25rem}.p-1\.5{padding:0.375rem}.p-2{padding:0.5rem}.px-4{padding-left:1rem;padding-right:1rem}.py-2\.5{padding-top:0.625rem;padding-bottom:0.625rem}.py-1{padding-top:0.25rem;padding-bottom:0.25rem}.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem}.py-12{padding-top:3rem;padding-bottom:3rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.pr-8{padding-right:2rem}.text-center{text-align:center}.font-mono{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace}.text-2xl{font-size:1.5rem;line-height:2rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xs{font-size:0.75rem;line-height:1rem}.text-\[10px\]{font-size:10px}.text-lg{font-size:1.125rem;line-height:1.75rem}.font-medium{font-weight:500}.font-semibold{font-weight:600}.font-bold{font-weight:700}.font-normal{font-weight:400}.uppercase{text-transform:uppercase}.normal-case{text-transform:none}.tracking-tight{letter-spacing:-0.025em}.tracking-wider{letter-spacing:0.05em}.tracking-wide{letter-spacing:0.025em}.tracking-widest{letter-spacing:0.1em}.text-zinc-900{--tw-text-opacity:1;color:rgb(24 24 27 / var(--tw-text-opacity, 1))}.text-red-500{--tw-text-opacity:1;color:rgb(239 68 68 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.text-zinc-500{--tw-text-opacity:1;color:rgb(113 113 122 / var(--tw-text-opacity, 1))}.text-blue-600{--tw-text-opacity:1;color:rgb(37 99 235 / var(--tw-text-opacity, 1))}.text-zinc-300{--tw-text-opacity:1;color:rgb(212 212 216 / var(--tw-text-opacity, 1))}.text-zinc-400{--tw-text-opacity:1;color:rgb(161 161 170 / var(--tw-text-opacity, 1))}.text-zinc-600{--tw-text-opacity:1;color:rgb(82 82 91 / var(--tw-text-opacity, 1))}.text-zinc-700{--tw-text-opacity:1;color:rgb(63 63 70 / var(--tw-text-opacity, 1))}.antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.shadow-sm{--tw-shadow:0 1px 2px 0 rgb(0 0 0 / 0.05);--tw-shadow-colored:0 1px 2px 0 var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.outline-none{outline:2px solid transparent;outline-offset:2px}.backdrop-blur-sm{--tw-backdrop-blur:blur(4px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.backdrop-blur-md{--tw-backdrop-blur:blur(12px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.transition-opacity{transition-property:opacity;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-transform{transition-property:transform;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-colors{transition-property:color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.selection\:bg-zinc-900 *::selection{--tw-bg-opacity:1;background-color:rgb(24 24 27 / var(--tw-bg-opacity, 1))}.selection\:text-white *::selection{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.selection\:bg-zinc-900::selection{--tw-bg-opacity:1;background-color:rgb(24 24 27 / var(--tw-bg-opacity, 1))}.selection\:text-white::selection{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.placeholder\:text-zinc-400::placeholder{--tw-text-opacity:1;color:rgb(161 161 170 / var(--tw-text-opacity, 1))}.hover\:border-zinc-400:hover{--tw-border-opacity:1;border-color:rgb(161 161 170 / var(--tw-border-opacity, 1))}.hover\:bg-zinc-800:hover{--tw-bg-opacity:1;background-color:rgb(39 39 42 / var(--tw-bg-opacity, 1))}.hover\:bg-zinc-200:hover{--tw-bg-opacity:1;background-color:rgb(228 228 231 / var(--tw-bg-opacity, 1))}.hover\:bg-zinc-50:hover{--tw-bg-opacity:1;background-color:rgb(250 250 250 / var(--tw-bg-opacity, 1))}.hover\:text-zinc-600:hover{--tw-text-opacity:1;color:rgb(82 82 91 / var(--tw-text-opacity, 1))}.hover\:text-zinc-700:hover{--tw-text-opacity:1;color:rgb(63 63 70 / var(--tw-text-opacity, 1))}.hover\:text-zinc-900:hover{--tw-text-opacity:1;color:rgb(24 24 27 / var(--tw-text-opacity, 1))}.hover\:shadow-md:hover{--tw-shadow:0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.focus\:border-zinc-400:focus{--tw-border-opacity:1;border-color:rgb(161 161 170 / var(--tw-border-opacity, 1))}.focus\:bg-white:focus{--tw-bg-opacity:1;background-color:rgb(255 255 255 / var(--tw-bg-opacity, 1))}.focus\:outline-none:focus{outline:2px solid transparent;outline-offset:2px}.focus\:ring-0:focus{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(0px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)}.focus\:ring-2:focus{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)}.focus\:ring-zinc-900:focus{--tw-ring-opacity:1;--tw-ring-color:rgb(24 24 27 / var(--tw-ring-opacity, 1))}.focus\:ring-offset-2:focus{--tw-ring-offset-width:2px}.active\:scale-\[0\.98\]:active{--tw-scale-x:0.98;--tw-scale-y:0.98;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}@media (min-width: 640px){.sm\:flex-row{flex-direction:row}.sm\:items-center{align-items:center}.sm\:justify-between{justify-content:space-between}.sm\:p-8{padding:2rem}.sm\:px-8{padding-left:2rem;padding-right:2rem}}</style></head>
+
+<body x-data="app()" x-init="initApp()" class="min-h-screen selection:bg-zinc-900 selection:text-white">
+
+    <!-- Loading Overlay -->
+    <div x-show="loading" class="fixed inset-0 z-50 flex items-center justify-center bg-white/80 backdrop-blur-sm transition-opacity" x-transition.opacity="" style="display: none;">
+        <span class="loading loading-spinner loading-lg text-zinc-900"></span>
+    </div>
+
+    <!-- Login View -->
+    <template x-if="!auth.token">
+        <div class="flex min-h-screen items-center justify-center p-4">
+            <div class="w-full max-w-sm rounded-xl bg-white p-8 shadow-sm border border-zinc-200">
+                <div class="mb-8 text-center">
+                    <h1 class="text-2xl font-semibold tracking-tight text-zinc-900">Task Manager</h1>
+                    <p class="text-sm text-zinc-500 mt-2">Sign in to manage your workspace</p>
+                </div>
+
+                <form @submit.prevent="login" class="space-y-4">
+                    <div>
+                        <label class="mb-1.5 block text-xs font-medium text-zinc-500 uppercase tracking-wider">Username</label>
+                        <input type="text" x-model="loginForm.username" required="" class="w-full rounded-lg border-zinc-200 bg-zinc-50 px-4 py-2.5 text-sm text-zinc-900 outline-none focus:border-zinc-400 focus:bg-white focus:ring-0 transition-all placeholder:text-zinc-400" placeholder="Enter your username">
+                    </div>
+                    <div>
+                        <label class="mb-1.5 block text-xs font-medium text-zinc-500 uppercase tracking-wider">Password</label>
+                        <input type="password" x-model="loginForm.password" required="" class="w-full rounded-lg border-zinc-200 bg-zinc-50 px-4 py-2.5 text-sm text-zinc-900 outline-none focus:border-zinc-400 focus:bg-white focus:ring-0 transition-all placeholder:text-zinc-400" placeholder="••••••••">
+                    </div>
+
+                    <div x-show="loginError" x-text="loginError" class="text-xs text-red-500 mt-2"></div>
+
+                    <button type="submit" class="w-full rounded-lg bg-zinc-900 px-4 py-2.5 text-sm font-medium text-white hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:ring-offset-2 transition-transform active:scale-[0.98]">
+                        Sign In
+                    </button>
+                </form>
+
+                <div class="mt-8 rounded-lg bg-zinc-50 p-4 text-xs text-zinc-500 border border-zinc-100">
+                    <p class="font-medium text-zinc-900 mb-2">Demo Credentials:</p>
+                    <div class="space-y-1">
+                        <div class="flex justify-between"><span>admin</span> <span class="font-mono">password</span>
+                        </div>
+                        <div class="flex justify-between"><span>manager</span> <span class="font-mono">password</span>
+                        </div>
+                        <div class="flex justify-between"><span>user</span> <span class="font-mono">password</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- Dashboard View -->
+    <template x-if="auth.token">
+        <div class="flex min-h-screen flex-col">
+            <!-- Navbar -->
+            <header class="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-zinc-200 bg-white/80 px-4 backdrop-blur-md sm:px-8">
+                <div class="flex items-center gap-2">
+                    <div class="h-6 w-6 rounded bg-zinc-900"></div>
+                    <span class="text-lg font-semibold tracking-tight text-zinc-900">Task Manager</span>
+                </div>
+
+                <div class="flex items-center gap-6">
+                    <div class="text-sm text-zinc-600">
+                        <span x-text="auth.user?.username" class="font-medium text-zinc-900"></span>
+                        <span class="mx-2 text-zinc-300">|</span>
+                        <span x-text="getRoleLabel()" class="text-xs uppercase tracking-wide"></span>
+                    </div>
+                    <button @click="logout" class="text-sm font-medium text-zinc-500 hover:text-zinc-900 transition-colors">
+                        Logout
+                    </button>
+                </div>
+            </header>
+
+            <!-- Main Content -->
+            <main class="flex-1 p-4 sm:p-8 max-w-7xl mx-auto w-full">
+
+                <!-- Toolbar -->
+                <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                    <div class="flex items-center gap-2 rounded-lg bg-zinc-100 p-1 border border-zinc-200 w-fit">
+                        <button @click="view = 'list'" :class="{'bg-white text-zinc-900 shadow-sm': view === 'list', 'text-zinc-500 hover:text-zinc-700': view !== 'list'}" class="rounded-md px-4 py-1.5 text-sm font-medium transition-all">
+                            List
+                        </button>
+                        <button @click="view = 'calendar'" :class="{'bg-white text-zinc-900 shadow-sm': view === 'calendar', 'text-zinc-500 hover:text-zinc-700': view !== 'calendar'}" class="rounded-md px-4 py-1.5 text-sm font-medium transition-all">
+                            Calendar
+                        </button>
+                    </div>
+
+                    <div class="flex flex-wrap items-center gap-3">
+                        <!-- Admin/Manager Controls -->
+                        <template x-if="hasRole('ADMIN') || hasRole('MANAGER')">
+                            <button @click="showUserModal = true" class="btn btn-sm btn-ghost font-normal normal-case text-zinc-600 hover:bg-zinc-100">
+                                Manage Users
+                            </button>
+                        </template>
+
+                        <button @click="exportCsv" class="btn btn-sm btn-outline border-zinc-300 text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900 hover:border-zinc-400 font-normal normal-case">
+                            Export CSV
+                        </button>
+                        <button @click="openTaskModal()" class="btn btn-sm bg-zinc-900 text-white hover:bg-zinc-800 border-none font-normal normal-case shadow-sm hover:shadow-md transition-all">
+                            + New Task
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Filters -->
+                <div class="mb-6 flex flex-wrap gap-4 items-center text-sm">
+                    <div class="relative group">
+                        <select x-model="filters.status" @change="fetchTasks" class="appearance-none bg-transparent pr-8 py-1 font-medium text-zinc-700 outline-none cursor-pointer">
+                            <option value="ALL">All Status</option>
+                            <option value="PENDING">Pending</option>
+                            <option value="APPROVED">Approved</option>
+                            <option value="REJECTED">Rejected</option>
+                        </select>
+                        <div class="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none text-zinc-400">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="relative group">
+                        <select x-model="filters.sortBy" @change="fetchTasks" class="appearance-none bg-transparent pr-8 py-1 font-medium text-zinc-700 outline-none cursor-pointer">
+                            <option value="date">Newest First</option>
+                            <option value="priority">High Priority First</option>
+                        </select>
+                        <div class="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none text-zinc-400">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- List View -->
+                <div x-show="view === 'list'" class="space-y-3">
+                    <template x-for="task in tasks" :key="task.id">
+                        <div class="group relative flex items-center justify-between rounded-xl border border-zinc-200 bg-white p-4 transition-all hover:border-zinc-300 hover:shadow-sm">
+                            <div class="flex-1 min-w-0 pr-4">
+                                <div class="flex items-center gap-3 mb-1">
+                                    <h3 class="font-medium text-zinc-900 truncate" x-text="task.title"></h3>
+                                    <span :class="getStatusBadgeClass(task.status)" class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider">
+                                        <span x-text="task.status"></span>
+                                    </span>
+                                    <span x-show="task.priority &lt;= 2" class="text-[10px] font-medium text-red-500 bg-red-50 px-1.5 py-0.5 rounded">High
+                                        Priority</span>
+                                </div>
+                                <p class="text-sm text-zinc-500 truncate" x-text="task.description || 'No description'">
+                                </p>
+                                <div class="mt-2 flex items-center gap-4 text-xs text-zinc-400">
+                                    <span>Created: <span x-text="formatDate(task.createdDate)"></span></span>
+                                    <span>Assignee: <span x-text="task.assignedUser?.username || 'Unassigned'" class="text-zinc-600"></span></span>
+                                    <span>By: <span x-text="task.createUser?.username || 'Unknown'"></span></span>
+                                </div>
+                            </div>
+
+                            <!-- Hover Actions -->
+                            <div class="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <!-- Manager/Admin Approve/Reject -->
+                                <template x-if="(hasRole('ADMIN') || hasRole('MANAGER')) &amp;&amp; task.status === 'PENDING'">
+                                    <div class="flex items-center bg-zinc-100 rounded-lg p-1 mr-2">
+                                        <button @click="updateTaskStatus(task.id, 'APPROVED')" class="p-1.5 text-emerald-600 hover:bg-white hover:shadow-sm rounded transition-all" title="Approve">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                            </svg>
+                                        </button>
+                                        <button @click="updateTaskStatus(task.id, 'REJECTED')" class="p-1.5 text-red-500 hover:bg-white hover:shadow-sm rounded transition-all" title="Reject">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </template>
+
+                                <!-- Delete -->
+                                <template x-if="canDelete(task)">
+                                    <button @click="deleteTask(task.id)" class="p-2 text-zinc-400 hover:text-red-500 transition-colors" title="Delete">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                                            </path>
+                                        </svg>
+                                    </button>
+                                </template>
+                            </div>
+                        </div>
+                    </template>
+                    <div x-show="tasks.length === 0" class="text-center py-12 text-zinc-400 text-sm">
+                        No tasks found.
+                    </div>
+                </div>
+
+                <!-- Calendar View -->
+                <div x-show="view === 'calendar'" class="bg-white rounded-xl border border-zinc-200 overflow-hidden shadow-sm">
+                    <!-- Calendar Header -->
+                    <div class="flex items-center justify-between p-4 border-b border-zinc-200 bg-zinc-50/50">
+                        <button @click="changeWeek(-7)" class="p-1.5 rounded-md hover:bg-zinc-200 text-zinc-600 transition-colors">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                            </svg>
+                        </button>
+                        <div class="flex items-center gap-3">
+                            <span x-text="weekRangeText" class="font-semibold text-zinc-900 text-sm tracking-wide"></span>
+                            <input type="date" @change="jumpToDate($event.target.value)" class="text-xs bg-transparent border-none outline-none text-zinc-400 hover:text-zinc-600 cursor-pointer w-4">
+                        </div>
+                        <button @click="changeWeek(7)" class="p-1.5 rounded-md hover:bg-zinc-200 text-zinc-600 transition-colors">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                                </path>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Calendar Grid -->
+                    <div class="grid grid-cols-7 border-b border-zinc-200 bg-zinc-50 text-[10px] font-medium text-zinc-500 uppercase tracking-widest text-center py-2">
+                        <div>Sun</div>
+                        <div>Mon</div>
+                        <div>Tue</div>
+                        <div>Wed</div>
+                        <div>Thu</div>
+                        <div>Fri</div>
+                        <div>Sat</div>
+                    </div>
+                    <div class="grid grid-cols-7 min-h-[500px] divide-x divide-zinc-100">
+                        <template x-for="day in calendarDays" :key="day.dateStr">
+                            <div class="flex flex-col p-2 gap-2" :class="{'bg-zinc-50/30': day.isToday}">
+                                <span x-text="day.dayNum" class="text-center text-xs font-medium text-zinc-400 mb-1" :class="{'text-blue-600 font-bold': day.isToday}"></span>
+
+                                <template x-for="task in day.tasks" :key="task.id">
+                                    <div class="group p-2 rounded border-l-2 bg-white shadow-sm hover:shadow-md transition-all cursor-pointer text-xs" :class="{
+                                            'border-emerald-500': task.status === 'APPROVED',
+                                            'border-amber-500': task.status === 'PENDING',
+                                            'border-red-500': task.status === 'REJECTED'
+                                        }" :title="task.title + ' (' + task.status + ')'">
+                                        <div class="font-medium text-zinc-900 truncate" x-text="task.title"></div>
+                                        <div class="text-[10px] text-zinc-400 mt-1 truncate" x-text="task.assignedUser?.username"></div>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+
+        <!-- Create Task Modal -->
+        <dialog id="task_modal" class="modal" :class="{'modal-open': showTaskModal}">
+            <div class="modal-box bg-white rounded-xl shadow-xl border border-zinc-100 p-0 overflow-hidden max-w-lg">
+                <div class="px-6 py-4 border-b border-zinc-100 flex justify-between items-center bg-zinc-50/50">
+                    <h3 class="font-semibold text-zinc-900">Create New Task</h3>
+                    <button @click="showTaskModal = false" class="text-zinc-400 hover:text-zinc-600">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <form @submit.prevent="createTask" class="p-6 space-y-4">
+                    <div>
+                        <label class="block text-xs font-medium text-zinc-500 uppercase tracking-wider mb-1.5">Title</label>
+                        <input type="text" x-model="newTask.title" required="" class="w-full rounded-lg border-zinc-200 text-sm focus:border-zinc-400 focus:ring-0">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-zinc-500 uppercase tracking-wider mb-1.5">Description</label>
+                        <textarea x-model="newTask.description" rows="3" class="w-full rounded-lg border-zinc-200 text-sm focus:border-zinc-400 focus:ring-0 resize-none"></textarea>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-medium text-zinc-500 uppercase tracking-wider mb-1.5">Priority
+                                (1-5)</label>
+                            <input type="number" x-model="newTask.priority" min="1" max="5" class="w-full rounded-lg border-zinc-200 text-sm focus:border-zinc-400 focus:ring-0">
+                        </div>
+                        <div x-show="hasRole('ADMIN') || hasRole('MANAGER') || allUsers.length &gt; 0">
+                            <label class="block text-xs font-medium text-zinc-500 uppercase tracking-wider mb-1.5">Assign
+                                To</label>
+                            <select x-model="newTask.assignedUserId" class="w-full rounded-lg border-zinc-200 text-sm focus:border-zinc-400 focus:ring-0">
+                                <option value="">Myself</option>
+                                <template x-for="user in allUsers" :key="user.id">
+                                    <option :value="user.id" x-text="user.username + ' (' + user.role + ')'"></option>
+                                </template>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="pt-4 flex justify-end gap-2">
+                        <button type="button" @click="showTaskModal = false" class="btn btn-sm btn-ghost font-normal normal-case text-zinc-600">Cancel</button>
+                        <button type="submit" class="btn btn-sm bg-zinc-900 text-white hover:bg-zinc-800 border-none font-normal normal-case">Create
+                            Task</button>
+                    </div>
+                </form>
+            </div>
+            <form method="dialog" class="modal-backdrop" @click="showTaskModal = false">
+                <button>close</button>
+            </form>
+        </dialog>
+
+        <!-- User Management Modal -->
+        <dialog id="user_modal" class="modal" :class="{'modal-open': showUserModal}">
+            <div class="modal-box bg-white rounded-xl shadow-xl border border-zinc-100 p-0 overflow-hidden w-11/12 max-w-4xl">
+                <div class="px-6 py-4 border-b border-zinc-100 flex justify-between items-center bg-zinc-50/50">
+                    <h3 class="font-semibold text-zinc-900">User Management</h3>
+                    <button @click="showUserModal = false" class="text-zinc-400 hover:text-zinc-600">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="p-6">
+                    <!-- Create User Form -->
+                    <form @submit.prevent="createUser" class="mb-8 p-4 bg-zinc-50 rounded-lg border border-zinc-100 flex flex-wrap gap-3 items-end">
+                        <div class="flex-1 min-w-[150px]">
+                            <label class="block text-[10px] font-medium text-zinc-400 uppercase tracking-wider mb-1">Username</label>
+                            <input type="text" x-model="newUser.username" required="" class="w-full rounded border-zinc-200 text-sm p-1.5">
+                        </div>
+                        <div class="flex-1 min-w-[150px]">
+                            <label class="block text-[10px] font-medium text-zinc-400 uppercase tracking-wider mb-1">Password</label>
+                            <input type="password" x-model="newUser.password" required="" class="w-full rounded border-zinc-200 text-sm p-1.5">
+                        </div>
+                        <div class="flex-1 min-w-[180px]">
+                            <label class="block text-[10px] font-medium text-zinc-400 uppercase tracking-wider mb-1">Email</label>
+                            <input type="email" x-model="newUser.email" class="w-full rounded border-zinc-200 text-sm p-1.5">
+                        </div>
+                        <div class="w-[120px]">
+                            <label class="block text-[10px] font-medium text-zinc-400 uppercase tracking-wider mb-1">Role</label>
+                            <select x-model="newUser.role" class="w-full rounded border-zinc-200 text-sm p-1.5">
+                                <option value="USER">User</option>
+                                <option value="MANAGER">Manager</option>
+                                <option value="ADMIN">Admin</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-sm bg-zinc-900 text-white hover:bg-zinc-800 border-none font-normal normal-case h-[34px]">Add</button>
+                    </form>
+
+                    <!-- User List -->
+                    <div class="overflow-x-auto">
+                        <table class="table table-sm w-full">
+                            <thead>
+                                <tr class="text-zinc-400 border-b-zinc-200">
+                                    <th>Username</th>
+                                    <th>Role</th>
+                                    <th>Manager</th>
+                                    <th>Email</th>
+                                    <th class="text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template x-for="u in userList" :key="u.id">
+                                    <tr class="hover:bg-zinc-50 border-b-zinc-100 text-zinc-700">
+                                        <td class="font-medium text-zinc-900" x-text="u.username"></td>
+                                        <td><span class="badge badge-sm badge-ghost font-normal" x-text="u.role"></span>
+                                        </td>
+                                        <td x-text="u.manager?.username || '-'"></td>
+                                        <td x-text="u.email || '-'"></td>
+                                        <td class="text-right gap-2">
+                                            <button @click="deleteUser(u.id)" class="text-zinc-400 hover:text-red-500 text-xs">Delete</button>
+                                        </td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <form method="dialog" class="modal-backdrop" @click="showUserModal = false">
+                <button>close</button>
+            </form>
+        </dialog>
+
+    </template><div class="flex min-h-screen flex-col">
+            <!-- Navbar -->
+            <header class="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-zinc-200 bg-white/80 px-4 backdrop-blur-md sm:px-8">
+                <div class="flex items-center gap-2">
+                    <div class="h-6 w-6 rounded bg-zinc-900"></div>
+                    <span class="text-lg font-semibold tracking-tight text-zinc-900">Task Manager</span>
+                </div>
+
+                <div class="flex items-center gap-6">
+                    <div class="text-sm text-zinc-600">
+                        <span x-text="auth.user?.username" class="font-medium text-zinc-900">anonymousUser</span>
+                        <span class="mx-2 text-zinc-300">|</span>
+                        <span x-text="getRoleLabel()" class="text-xs uppercase tracking-wide">ANONYMOUS</span>
+                    </div>
+                    <button @click="logout" class="text-sm font-medium text-zinc-500 hover:text-zinc-900 transition-colors">
+                        Logout
+                    </button>
+                </div>
+            </header>
+
+            <!-- Main Content -->
+            <main class="flex-1 p-4 sm:p-8 max-w-7xl mx-auto w-full">
+
+                <!-- Toolbar -->
+                <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                    <div class="flex items-center gap-2 rounded-lg bg-zinc-100 p-1 border border-zinc-200 w-fit">
+                        <button @click="view = 'list'" :class="{'bg-white text-zinc-900 shadow-sm': view === 'list', 'text-zinc-500 hover:text-zinc-700': view !== 'list'}" class="rounded-md px-4 py-1.5 text-sm font-medium transition-all bg-white text-zinc-900 shadow-sm">
+                            List
+                        </button>
+                        <button @click="view = 'calendar'" :class="{'bg-white text-zinc-900 shadow-sm': view === 'calendar', 'text-zinc-500 hover:text-zinc-700': view !== 'calendar'}" class="rounded-md px-4 py-1.5 text-sm font-medium transition-all text-zinc-500 hover:text-zinc-700">
+                            Calendar
+                        </button>
+                    </div>
+
+                    <div class="flex flex-wrap items-center gap-3">
+                        <!-- Admin/Manager Controls -->
+                        <template x-if="hasRole('ADMIN') || hasRole('MANAGER')">
+                            <button @click="showUserModal = true" class="btn btn-sm btn-ghost font-normal normal-case text-zinc-600 hover:bg-zinc-100">
+                                Manage Users
+                            </button>
+                        </template>
+
+                        <button @click="exportCsv" class="btn btn-sm btn-outline border-zinc-300 text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900 hover:border-zinc-400 font-normal normal-case">
+                            Export CSV
+                        </button>
+                        <button @click="openTaskModal()" class="btn btn-sm bg-zinc-900 text-white hover:bg-zinc-800 border-none font-normal normal-case shadow-sm hover:shadow-md transition-all">
+                            + New Task
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Filters -->
+                <div class="mb-6 flex flex-wrap gap-4 items-center text-sm">
+                    <div class="relative group">
+                        <select x-model="filters.status" @change="fetchTasks" class="appearance-none bg-transparent pr-8 py-1 font-medium text-zinc-700 outline-none cursor-pointer">
+                            <option value="ALL">All Status</option>
+                            <option value="PENDING">Pending</option>
+                            <option value="APPROVED">Approved</option>
+                            <option value="REJECTED">Rejected</option>
+                        </select>
+                        <div class="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none text-zinc-400">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="relative group">
+                        <select x-model="filters.sortBy" @change="fetchTasks" class="appearance-none bg-transparent pr-8 py-1 font-medium text-zinc-700 outline-none cursor-pointer">
+                            <option value="date">Newest First</option>
+                            <option value="priority">High Priority First</option>
+                        </select>
+                        <div class="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none text-zinc-400">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- List View -->
+                <div x-show="view === 'list'" class="space-y-3">
+                    <template x-for="task in tasks" :key="task.id">
+                        <div class="group relative flex items-center justify-between rounded-xl border border-zinc-200 bg-white p-4 transition-all hover:border-zinc-300 hover:shadow-sm">
+                            <div class="flex-1 min-w-0 pr-4">
+                                <div class="flex items-center gap-3 mb-1">
+                                    <h3 class="font-medium text-zinc-900 truncate" x-text="task.title"></h3>
+                                    <span :class="getStatusBadgeClass(task.status)" class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider">
+                                        <span x-text="task.status"></span>
+                                    </span>
+                                    <span x-show="task.priority &lt;= 2" class="text-[10px] font-medium text-red-500 bg-red-50 px-1.5 py-0.5 rounded">High
+                                        Priority</span>
+                                </div>
+                                <p class="text-sm text-zinc-500 truncate" x-text="task.description || 'No description'">
+                                </p>
+                                <div class="mt-2 flex items-center gap-4 text-xs text-zinc-400">
+                                    <span>Created: <span x-text="formatDate(task.createdDate)"></span></span>
+                                    <span>Assignee: <span x-text="task.assignedUser?.username || 'Unassigned'" class="text-zinc-600"></span></span>
+                                    <span>By: <span x-text="task.createUser?.username || 'Unknown'"></span></span>
+                                </div>
+                            </div>
+
+                            <!-- Hover Actions -->
+                            <div class="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <!-- Manager/Admin Approve/Reject -->
+                                <template x-if="(hasRole('ADMIN') || hasRole('MANAGER')) &amp;&amp; task.status === 'PENDING'">
+                                    <div class="flex items-center bg-zinc-100 rounded-lg p-1 mr-2">
+                                        <button @click="updateTaskStatus(task.id, 'APPROVED')" class="p-1.5 text-emerald-600 hover:bg-white hover:shadow-sm rounded transition-all" title="Approve">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                            </svg>
+                                        </button>
+                                        <button @click="updateTaskStatus(task.id, 'REJECTED')" class="p-1.5 text-red-500 hover:bg-white hover:shadow-sm rounded transition-all" title="Reject">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </template>
+
+                                <!-- Delete -->
+                                <template x-if="canDelete(task)">
+                                    <button @click="deleteTask(task.id)" class="p-2 text-zinc-400 hover:text-red-500 transition-colors" title="Delete">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                                            </path>
+                                        </svg>
+                                    </button>
+                                </template>
+                            </div>
+                        </div>
+                    </template>
+                    <div x-show="tasks.length === 0" class="text-center py-12 text-zinc-400 text-sm">
+                        No tasks found.
+                    </div>
+                </div>
+
+                <!-- Calendar View -->
+                <div x-show="view === 'calendar'" class="bg-white rounded-xl border border-zinc-200 overflow-hidden shadow-sm" style="display: none;">
+                    <!-- Calendar Header -->
+                    <div class="flex items-center justify-between p-4 border-b border-zinc-200 bg-zinc-50/50">
+                        <button @click="changeWeek(-7)" class="p-1.5 rounded-md hover:bg-zinc-200 text-zinc-600 transition-colors">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                            </svg>
+                        </button>
+                        <div class="flex items-center gap-3">
+                            <span x-text="weekRangeText" class="font-semibold text-zinc-900 text-sm tracking-wide">Jan 11 - Jan 17</span>
+                            <input type="date" @change="jumpToDate($event.target.value)" class="text-xs bg-transparent border-none outline-none text-zinc-400 hover:text-zinc-600 cursor-pointer w-4">
+                        </div>
+                        <button @click="changeWeek(7)" class="p-1.5 rounded-md hover:bg-zinc-200 text-zinc-600 transition-colors">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                                </path>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Calendar Grid -->
+                    <div class="grid grid-cols-7 border-b border-zinc-200 bg-zinc-50 text-[10px] font-medium text-zinc-500 uppercase tracking-widest text-center py-2">
+                        <div>Sun</div>
+                        <div>Mon</div>
+                        <div>Tue</div>
+                        <div>Wed</div>
+                        <div>Thu</div>
+                        <div>Fri</div>
+                        <div>Sat</div>
+                    </div>
+                    <div class="grid grid-cols-7 min-h-[500px] divide-x divide-zinc-100">
+                        <template x-for="day in calendarDays" :key="day.dateStr">
+                            <div class="flex flex-col p-2 gap-2" :class="{'bg-zinc-50/30': day.isToday}">
+                                <span x-text="day.dayNum" class="text-center text-xs font-medium text-zinc-400 mb-1" :class="{'text-blue-600 font-bold': day.isToday}"></span>
+
+                                <template x-for="task in day.tasks" :key="task.id">
+                                    <div class="group p-2 rounded border-l-2 bg-white shadow-sm hover:shadow-md transition-all cursor-pointer text-xs" :class="{
+                                            'border-emerald-500': task.status === 'APPROVED',
+                                            'border-amber-500': task.status === 'PENDING',
+                                            'border-red-500': task.status === 'REJECTED'
+                                        }" :title="task.title + ' (' + task.status + ')'">
+                                        <div class="font-medium text-zinc-900 truncate" x-text="task.title"></div>
+                                        <div class="text-[10px] text-zinc-400 mt-1 truncate" x-text="task.assignedUser?.username"></div>
+                                    </div>
+                                </template>
+                            </div>
+                        </template><div class="flex flex-col p-2 gap-2" :class="{'bg-zinc-50/30': day.isToday}">
+                                <span x-text="day.dayNum" class="text-center text-xs font-medium text-zinc-400 mb-1" :class="{'text-blue-600 font-bold': day.isToday}">11</span>
+
+                                <template x-for="task in day.tasks" :key="task.id">
+                                    <div class="group p-2 rounded border-l-2 bg-white shadow-sm hover:shadow-md transition-all cursor-pointer text-xs" :class="{
+                                            'border-emerald-500': task.status === 'APPROVED',
+                                            'border-amber-500': task.status === 'PENDING',
+                                            'border-red-500': task.status === 'REJECTED'
+                                        }" :title="task.title + ' (' + task.status + ')'">
+                                        <div class="font-medium text-zinc-900 truncate" x-text="task.title"></div>
+                                        <div class="text-[10px] text-zinc-400 mt-1 truncate" x-text="task.assignedUser?.username"></div>
+                                    </div>
+                                </template>
+                            </div><div class="flex flex-col p-2 gap-2" :class="{'bg-zinc-50/30': day.isToday}">
+                                <span x-text="day.dayNum" class="text-center text-xs font-medium text-zinc-400 mb-1" :class="{'text-blue-600 font-bold': day.isToday}">12</span>
+
+                                <template x-for="task in day.tasks" :key="task.id">
+                                    <div class="group p-2 rounded border-l-2 bg-white shadow-sm hover:shadow-md transition-all cursor-pointer text-xs" :class="{
+                                            'border-emerald-500': task.status === 'APPROVED',
+                                            'border-amber-500': task.status === 'PENDING',
+                                            'border-red-500': task.status === 'REJECTED'
+                                        }" :title="task.title + ' (' + task.status + ')'">
+                                        <div class="font-medium text-zinc-900 truncate" x-text="task.title"></div>
+                                        <div class="text-[10px] text-zinc-400 mt-1 truncate" x-text="task.assignedUser?.username"></div>
+                                    </div>
+                                </template>
+                            </div><div class="flex flex-col p-2 gap-2" :class="{'bg-zinc-50/30': day.isToday}">
+                                <span x-text="day.dayNum" class="text-center text-xs font-medium text-zinc-400 mb-1" :class="{'text-blue-600 font-bold': day.isToday}">13</span>
+
+                                <template x-for="task in day.tasks" :key="task.id">
+                                    <div class="group p-2 rounded border-l-2 bg-white shadow-sm hover:shadow-md transition-all cursor-pointer text-xs" :class="{
+                                            'border-emerald-500': task.status === 'APPROVED',
+                                            'border-amber-500': task.status === 'PENDING',
+                                            'border-red-500': task.status === 'REJECTED'
+                                        }" :title="task.title + ' (' + task.status + ')'">
+                                        <div class="font-medium text-zinc-900 truncate" x-text="task.title"></div>
+                                        <div class="text-[10px] text-zinc-400 mt-1 truncate" x-text="task.assignedUser?.username"></div>
+                                    </div>
+                                </template>
+                            </div><div class="flex flex-col p-2 gap-2" :class="{'bg-zinc-50/30': day.isToday}">
+                                <span x-text="day.dayNum" class="text-center text-xs font-medium text-zinc-400 mb-1" :class="{'text-blue-600 font-bold': day.isToday}">14</span>
+
+                                <template x-for="task in day.tasks" :key="task.id">
+                                    <div class="group p-2 rounded border-l-2 bg-white shadow-sm hover:shadow-md transition-all cursor-pointer text-xs" :class="{
+                                            'border-emerald-500': task.status === 'APPROVED',
+                                            'border-amber-500': task.status === 'PENDING',
+                                            'border-red-500': task.status === 'REJECTED'
+                                        }" :title="task.title + ' (' + task.status + ')'">
+                                        <div class="font-medium text-zinc-900 truncate" x-text="task.title"></div>
+                                        <div class="text-[10px] text-zinc-400 mt-1 truncate" x-text="task.assignedUser?.username"></div>
+                                    </div>
+                                </template>
+                            </div><div class="flex flex-col p-2 gap-2" :class="{'bg-zinc-50/30': day.isToday}">
+                                <span x-text="day.dayNum" class="text-center text-xs font-medium text-zinc-400 mb-1" :class="{'text-blue-600 font-bold': day.isToday}">15</span>
+
+                                <template x-for="task in day.tasks" :key="task.id">
+                                    <div class="group p-2 rounded border-l-2 bg-white shadow-sm hover:shadow-md transition-all cursor-pointer text-xs" :class="{
+                                            'border-emerald-500': task.status === 'APPROVED',
+                                            'border-amber-500': task.status === 'PENDING',
+                                            'border-red-500': task.status === 'REJECTED'
+                                        }" :title="task.title + ' (' + task.status + ')'">
+                                        <div class="font-medium text-zinc-900 truncate" x-text="task.title"></div>
+                                        <div class="text-[10px] text-zinc-400 mt-1 truncate" x-text="task.assignedUser?.username"></div>
+                                    </div>
+                                </template>
+                            </div><div class="flex flex-col p-2 gap-2" :class="{'bg-zinc-50/30': day.isToday}">
+                                <span x-text="day.dayNum" class="text-center text-xs font-medium text-zinc-400 mb-1" :class="{'text-blue-600 font-bold': day.isToday}">16</span>
+
+                                <template x-for="task in day.tasks" :key="task.id">
+                                    <div class="group p-2 rounded border-l-2 bg-white shadow-sm hover:shadow-md transition-all cursor-pointer text-xs" :class="{
+                                            'border-emerald-500': task.status === 'APPROVED',
+                                            'border-amber-500': task.status === 'PENDING',
+                                            'border-red-500': task.status === 'REJECTED'
+                                        }" :title="task.title + ' (' + task.status + ')'">
+                                        <div class="font-medium text-zinc-900 truncate" x-text="task.title"></div>
+                                        <div class="text-[10px] text-zinc-400 mt-1 truncate" x-text="task.assignedUser?.username"></div>
+                                    </div>
+                                </template>
+                            </div><div class="flex flex-col p-2 gap-2 bg-zinc-50/30" :class="{'bg-zinc-50/30': day.isToday}">
+                                <span x-text="day.dayNum" class="text-center text-xs font-medium text-zinc-400 mb-1 text-blue-600 font-bold" :class="{'text-blue-600 font-bold': day.isToday}">17</span>
+
+                                <template x-for="task in day.tasks" :key="task.id">
+                                    <div class="group p-2 rounded border-l-2 bg-white shadow-sm hover:shadow-md transition-all cursor-pointer text-xs" :class="{
+                                            'border-emerald-500': task.status === 'APPROVED',
+                                            'border-amber-500': task.status === 'PENDING',
+                                            'border-red-500': task.status === 'REJECTED'
+                                        }" :title="task.title + ' (' + task.status + ')'">
+                                        <div class="font-medium text-zinc-900 truncate" x-text="task.title"></div>
+                                        <div class="text-[10px] text-zinc-400 mt-1 truncate" x-text="task.assignedUser?.username"></div>
+                                    </div>
+                                </template>
+                            </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+
+    <script src="/js/app.js"></script>
+
+
+</body></html>
+Browser Logs:
+Sat Jan 17 22:39:54 CST 2026 WARNING https://cdn.tailwindcss.com/ 63:1710 "cdn.tailwindcss.com should not be used in production. To use Tailwind CSS in production, install it as a PostCSS plugin or use the Tailwind CLI: https://tailwindcss.com/docs/installation"
+Sat Jan 17 22:39:54 CST 2026 FINE http://localhost:54861/ - [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o
+[ERROR] Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 28.86 s <<< FAILURE! -- in com.example.taskmanager.e2e.TaskManagementBrowserTest
+[ERROR] com.example.taskmanager.e2e.TaskManagementBrowserTest.testCalendarViewSwitch -- Time elapsed: 15.79 s <<< ERROR!
+org.openqa.selenium.TimeoutException: 
+Expected condition failed: waiting for visibility of element located by By.xpath: //input[@placeholder='Enter your username'] (tried for 10 second(s) with 500 milliseconds interval)
+Build info: version: '4.25.0', revision: '8a8aea2337'
+System info: os.name: 'Mac OS X', os.arch: 'aarch64', os.version: '14.4', java.version: '24.0.2'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 144.0.7559.59, chrome: {chromedriverVersion: 144.0.7559.31 (18537d992890..., userDataDir: /var/folders/pf/vw43rk0x6rz...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:54866}, goog:processID: 10255, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: mac, proxy: Proxy(), se:cdp: ws://localhost:54866/devtoo..., se:cdpVersion: 144.0.7559.59, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: b479ee26f07d9b7b20d33ac576b9e96a
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:228)
+	at com.example.taskmanager.e2e.TaskManagementBrowserTest.login(TaskManagementBrowserTest.java:67)
+	at com.example.taskmanager.e2e.TaskManagementBrowserTest.testCalendarViewSwitch(TaskManagementBrowserTest.java:122)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+[ERROR] com.example.taskmanager.e2e.TaskManagementBrowserTest.testCreateAndListTask -- Time elapsed: 10.94 s <<< ERROR!
+org.openqa.selenium.TimeoutException: 
+Expected condition failed: waiting for visibility of element located by By.xpath: //input[@placeholder='Enter your username'] (tried for 10 second(s) with 500 milliseconds interval)
+Build info: version: '4.25.0', revision: '8a8aea2337'
+System info: os.name: 'Mac OS X', os.arch: 'aarch64', os.version: '14.4', java.version: '24.0.2'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 144.0.7559.59, chrome: {chromedriverVersion: 144.0.7559.31 (18537d992890..., userDataDir: /var/folders/pf/vw43rk0x6rz...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:54895}, goog:processID: 10306, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: mac, proxy: Proxy(), se:cdp: ws://localhost:54895/devtoo..., se:cdpVersion: 144.0.7559.59, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: f5a6e01e25a268ffd7e8011068d0b60e
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:228)
+	at com.example.taskmanager.e2e.TaskManagementBrowserTest.login(TaskManagementBrowserTest.java:67)
+	at com.example.taskmanager.e2e.TaskManagementBrowserTest.testCreateAndListTask(TaskManagementBrowserTest.java:78)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Errors: 
+[ERROR]   TaskManagementBrowserTest.testCalendarViewSwitch:122->login:67 » Timeout Expected condition failed: waiting for visibility of element located by By.xpath: //input[@placeholder='Enter your username'] (tried for 10 second(s) with 500 milliseconds interval)
+Build info: version: '4.25.0', revision: '8a8aea2337'
+System info: os.name: 'Mac OS X', os.arch: 'aarch64', os.version: '14.4', java.version: '24.0.2'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 144.0.7559.59, chrome: {chromedriverVersion: 144.0.7559.31 (18537d992890..., userDataDir: /var/folders/pf/vw43rk0x6rz...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:54866}, goog:processID: 10255, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: mac, proxy: Proxy(), se:cdp: ws://localhost:54866/devtoo..., se:cdpVersion: 144.0.7559.59, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: b479ee26f07d9b7b20d33ac576b9e96a
+[ERROR]   TaskManagementBrowserTest.testCreateAndListTask:78->login:67 » Timeout Expected condition failed: waiting for visibility of element located by By.xpath: //input[@placeholder='Enter your username'] (tried for 10 second(s) with 500 milliseconds interval)
+Build info: version: '4.25.0', revision: '8a8aea2337'
+System info: os.name: 'Mac OS X', os.arch: 'aarch64', os.version: '14.4', java.version: '24.0.2'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 144.0.7559.59, chrome: {chromedriverVersion: 144.0.7559.31 (18537d992890..., userDataDir: /var/folders/pf/vw43rk0x6rz...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:54895}, goog:processID: 10306, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: mac, proxy: Proxy(), se:cdp: ws://localhost:54895/devtoo..., se:cdpVersion: 144.0.7559.59, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: f5a6e01e25a268ffd7e8011068d0b60e
+[INFO] 
+[ERROR] Tests run: 2, Failures: 0, Errors: 2, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  30.083 s
+[INFO] Finished at: 2026-01-17T22:40:05-06:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.2:test (default-test) on project taskmanager: 
+[ERROR] 
+[ERROR] See /Users/siyisong/Documents/TaskManager/target/surefire-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
