@@ -22,7 +22,7 @@ public class TaskService {
     private com.example.taskmanager.repository.UserRepository userRepository;
 
     public Task createTask(Task task, com.example.taskmanager.entity.User creator) {
-        task.setCreatedDate(LocalDateTime.now());
+        task.setCreatedDate(LocalDateTime.now(java.time.ZoneOffset.UTC));
         task.setStatus(TaskStatus.PENDING);
         task.setCreateUserId(creator.getId());
 
