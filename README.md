@@ -23,6 +23,20 @@ A Task Management Application built with Spring Boot and PostgreSQL, fully conta
 *   **Email Notifications**: Integration with MailHog to capture and display system emails during development.
 *   **Containerized Deployment**: Zero-config setup using Docker and Docker Compose.
 
+
+## Frontend Architecture & Design
+
+*   **Framework**: [Alpine.js](https://alpinejs.dev/)
+    *   Lightweight, purely behavior-driven framework for dynamic interactivity.
+    *   Handles client-side state (modals, tabs, filtering) without complex build steps.
+*   **Styling**: [Tailwind CSS](https://tailwindcss.com/) & [DaisyUI](https://daisyui.com/)
+    *   Utility-first CSS architecture for highly customizable designs.
+    *   DaisyUI adds semantic component classes to reduce class-name clutter.
+*   **Design Philosophy**:
+    *   **Aesthetic**: "Professional Minimalist" using a curated Zinc/Slate color palette.
+    *   **Typography**: **Inter** font family for superior screen readability.
+    *   **Experience**: Smooth micro-interactions, responsive layout, and immediate visual feedback.
+
 ## Prerequisites
 
 *   [Docker](https://www.docker.com/products/docker-desktop/) & Docker Compose
